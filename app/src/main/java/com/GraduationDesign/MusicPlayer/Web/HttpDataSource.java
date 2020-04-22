@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.GraduationDesign.MusicPlayer.ui.recommend.WyRecommendListBean;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -76,9 +77,9 @@ public class HttpDataSource {
      * @param url
      * @param callback
      */
-    public static void httpGet(String url, final JsonCallback callback) {
+    public static void httpGet(String url, final mlweiCallback callback) {
         Log.d("HttpGet URl", url);
-        HttpUtil.sendGetRequest(url, new HttpCallback() {
+        HttpUtil.sendGetRequest_okHttp(url, new HttpCallback() {
             @Override
             public void onFinish(Bitmap bm) {
 
@@ -97,13 +98,13 @@ public class HttpDataSource {
                     if (callback != null) {
                         Log.d("Http", "read finish：" + response.toString());
                         // setResponse(response.toString());
-                        JsonModel jsonModel = new Gson().fromJson(response.toString(), JsonModel.class);
+                        WyRecommendListBean json = new Gson().fromJson(response.toString(), WyRecommendListBean.class);
 //                        jsonModel.setResult(jsonModel.getResult().replace("\n",""));
 //                        test(jsonModel.getResult());
 //                        String str = new String(RSAUtilV2.decryptByPrivateKey(Base64.decode(jsonModel.getResult().replace("\n",""),Base64.DEFAULT),APPCONST.privateKey));
 
-                        callback.onFinish(jsonModel);
-                        Log.d("Http", "RSA finish：" + new Gson().toJson(jsonModel));
+                        callback.onFinish(json);
+                        Log.d("Http", "RSA finish：" + new Gson().toJson(json));
                     }
                 } catch (Exception e) {
                     callback.onError(e);

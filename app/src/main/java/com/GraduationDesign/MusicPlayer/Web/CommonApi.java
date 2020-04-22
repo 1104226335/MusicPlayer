@@ -3,6 +3,7 @@ package com.GraduationDesign.MusicPlayer.Web;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.GraduationDesign.MusicPlayer.ui.recommend.WyRecommendListBean;
 import com.GraduationDesign.MusicPlayer.utils.StringHelper;
 
 /**
@@ -47,5 +48,24 @@ public class CommonApi extends BaseApi{
             }
         });
 
+    }
+    public static void getWyRecommendById(String Id,final ResultCallback callback){
+        Map<String,Object> param = new HashMap<>();
+        param.put("key","523077333");
+        param.put("cache",1);
+        param.put("type","songlist");
+        param.put("id",Id);
+//        ?key=523077333&cache=1&type=songlist&id=128509912
+        getCommonApi(URLCONST.Wy_List_Api, param,  new ResultCallback() {
+            @Override
+            public void onFinish(Object o, int code) {
+                callback.onFinish(o,code);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
     }
 }

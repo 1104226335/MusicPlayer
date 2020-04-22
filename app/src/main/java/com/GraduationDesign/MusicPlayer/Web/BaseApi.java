@@ -1,5 +1,6 @@
 package com.GraduationDesign.MusicPlayer.Web;
 
+import com.GraduationDesign.MusicPlayer.ui.recommend.WyRecommendListBean;
 import com.google.gson.Gson;
 
 import java.util.Map;
@@ -64,14 +65,14 @@ public class BaseApi {
      * @param c 返回的实体类型
      * @param callback
      */
-    protected static void getCommonApi(String url, Map<String, Object> params, final Class c, final ResultCallback callback) {
-        HttpDataSource.httpGet(HttpUtil.makeURL(url,params), new JsonCallback() {
+    protected static void getCommonApi(String url, Map<String, Object> params,  final ResultCallback callback) {
+        HttpDataSource.httpGet(HttpUtil.makeURL(url,params), new mlweiCallback() {
             @Override
-            public void onFinish(JsonModel jsonModel) {
-                if (jsonModel.isSuccess()) {
-                    callback.onFinish(new Gson().fromJson(jsonModel.getResult(),c), jsonModel.getError());
+            public void onFinish(WyRecommendListBean jsonModel) {
+                if (jsonModel.getCode().equals("OK")) {
+                    callback.onFinish(jsonModel, 0);
                 } else {
-                    noSuccess(jsonModel,callback);
+//                    noSuccess(jsonModel,callback);
                 }
             }
 
@@ -82,28 +83,28 @@ public class BaseApi {
         });
     }
 
-    /**
-     * get通用返回字符串api
-     * @param url
-     * @param params
-     * @param callback
-     */
-    protected static void getCommonReturnStringApi(String url, Map<String, Object> params, final ResultCallback callback) {
-        HttpDataSource.httpGet(HttpUtil.makeURL(url,params), new JsonCallback() {
-            @Override
-            public void onFinish(JsonModel jsonModel) {
-                if (jsonModel.isSuccess()) {
-                    callback.onFinish(jsonModel.getResult(), jsonModel.getError());
-                } else {
-                    noSuccess(jsonModel,callback);
-                }
-            }
-            @Override
-            public void onError(Exception e) {
-              error(e,callback);
-            }
-        });
-    }
+//    /**
+//     * get通用返回字符串api
+//     * @param url
+//     * @param params
+//     * @param callback
+//     */
+//    protected static void getCommonReturnStringApi(String url, Map<String, Object> params, final ResultCallback callback) {
+//        HttpDataSource.httpGet(HttpUtil.makeURL(url,params), new JsonCallback() {
+//            @Override
+//            public void onFinish(JsonModel jsonModel) {
+//                if (jsonModel.isSuccess()) {
+//                    callback.onFinish(jsonModel.getResult(), jsonModel.getError());
+//                } else {
+//                    noSuccess(jsonModel,callback);
+//                }
+//            }
+//            @Override
+//            public void onError(Exception e) {
+//              error(e,callback);
+//            }
+//        });
+//    }
 
     /**
      * get通用返回Html字符串api
@@ -135,18 +136,17 @@ public class BaseApi {
      * @param callback
      */
     protected static void getCommonListApi(String url, Map<String, Object> params, final Class c, final ResultCallback callback) {
-        HttpDataSource.httpGet(HttpUtil.makeURL(url,params), new JsonCallback() {
+        HttpDataSource.httpGet(HttpUtil.makeURL(url,params), new mlweiCallback() {
             @Override
-            public void onFinish(JsonModel jsonModel) {
-                if (jsonModel.isSuccess()) {
+            public void onFinish(WyRecommendListBean jsonModel) {
+                if (jsonModel.getCode().equals("OK")) {
                     try {
-                        callback.onFinish(JsonArrayToObjectArray.getArray(jsonModel.getResult(),c), jsonModel.getError());
+                        callback.onFinish(jsonModel, 0);
                     }catch (Exception e){
                         callback.onError(e);
                         e.printStackTrace();
                     }
                 } else {
-                    noSuccess(jsonModel,callback);
                 }
             }
 

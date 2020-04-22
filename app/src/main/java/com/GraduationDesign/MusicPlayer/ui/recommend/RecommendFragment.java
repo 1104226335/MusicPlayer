@@ -66,28 +66,6 @@ public class RecommendFragment extends BaseFragment {
 
         initData();
 
-//        List<String> musicListCover = new ArrayList<>();
-//        List<String> musicListName = new ArrayList<>();
-//        musicListCover.add("https://www.baiqing.work/images/team-2.jpg");
-//        musicListName.add("SockAi");
-//        musicListCover.add("https://www.baiqing.work/images/team-2.jpg");
-//        musicListName.add("SockAi");
-//        musicListCover.add("https://www.baiqing.work/images/team-2.jpg");
-//        musicListName.add("SockAi");
-//        musicListCover.add("https://www.baiqing.work/images/team-2.jpg");
-//        musicListName.add("SockAi");
-//        musicListCover.add("https://www.baiqing.work/images/team-2.jpg");
-//        musicListName.add("SockAi");
-//
-//        CategoryDetail categoryDetail = new CategoryDetail();
-//        categoryDetail.setImageUrl(musicListCover);
-//        categoryDetail.setListName(musicListName);
-//        categoryDetail.setCategoryName("大可爱歌单");
-//
-//        categoryDetails.add(categoryDetail);
-//
-//        categoryDetail.setCategoryName("小可爱歌单");
-//        categoryDetails.add(categoryDetail);
 
 
 
