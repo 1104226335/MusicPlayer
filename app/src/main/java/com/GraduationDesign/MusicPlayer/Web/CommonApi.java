@@ -49,13 +49,12 @@ public class CommonApi extends BaseApi{
         });
 
     }
-    public static void getWyRecommendById(String Id,final ResultCallback callback){
+    public static void getWyRecommendById(String Id,String key,final ResultCallback callback){
         Map<String,Object> param = new HashMap<>();
-        param.put("key","523077333");
+        param.put("key",key);
         param.put("cache",1);
         param.put("type","songlist");
         param.put("id",Id);
-//        ?key=523077333&cache=1&type=songlist&id=128509912
         getCommonApi(URLCONST.Wy_List_Api, param,  new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {

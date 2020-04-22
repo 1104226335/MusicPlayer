@@ -150,6 +150,11 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener {
     }
 
     @Override
+    public int getDuration() {
+        return mPlayer.getDuration();
+    }
+
+    @Override
     public boolean isPlaying() {
         return mPlayer.isPlaying();
     }

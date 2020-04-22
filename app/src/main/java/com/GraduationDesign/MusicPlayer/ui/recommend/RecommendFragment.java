@@ -1,5 +1,6 @@
 package com.GraduationDesign.MusicPlayer.ui.recommend;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,18 +21,27 @@ import com.GraduationDesign.MusicPlayer.ui.base.BaseFragment;
 import com.GraduationDesign.MusicPlayer.ui.local.Adapter.CategoryAdapter;
 import com.GraduationDesign.MusicPlayer.ui.local.Adapter.CategoryDetail;
 import com.GraduationDesign.MusicPlayer.ui.local.ImageBannerHolder;
+import com.GraduationDesign.MusicPlayer.utils.SecretUtil;
+import com.GraduationDesign.MusicPlayer.utils.TimeHelper;
 import com.GraduationDesign.MusicPlayer.utils.WyRecommendUtil;
 import com.to.aboomy.banner.Banner;
 import com.to.aboomy.banner.IndicatorView;
 import com.to.aboomy.banner.ScaleInTransformer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class RecommendFragment extends BaseFragment {
     Banner banner;
     List<String> list = new ArrayList<>();
-
+    String APIKEY ;
     RecyclerView musicLists;
     CategoryAdapter categoryAdapter;
     List<CategoryDetail> categoryDetails = new ArrayList<>();
@@ -90,6 +100,13 @@ public class RecommendFragment extends BaseFragment {
                 if (!categoryDetails.isEmpty())handler.sendMessage(handler.obtainMessage(1));
             }
         }).start();
+        try{
+            APIKEY = SecretUtil.md5(SecretUtil.md5("523077333")+
+                    SecretUtil.sha1(TimeHelper.getStringDateForKey("yyyyMMddHH")));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
     public void initAdapter(){
         categoryAdapter = new CategoryAdapter(getActivity(), categoryDetails,
@@ -101,7 +118,10 @@ public class RecommendFragment extends BaseFragment {
 
                     @Override
                     public void OnClickItem(String ListId) {
-
+                        Intent intent = new Intent(getActivity(),RecommendListsActicity.class);
+                        intent.putExtra("ListId",ListId);
+                        intent.putExtra("Key",APIKEY);
+                        startActivity(intent);
                     }
                 });
         musicLists.setAdapter(categoryAdapter);
@@ -117,5 +137,23 @@ public class RecommendFragment extends BaseFragment {
             return false;
         }
     });
+    public  void getAPIKey(String url) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    String result = response.body().string();
+                    APIKEY = result;
+                }
+            }
+        });
+    }
 
 }

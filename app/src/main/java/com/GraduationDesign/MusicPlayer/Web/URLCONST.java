@@ -10,7 +10,7 @@ public class URLCONST {
         public static String method_RegisterToService = nameSpace_system+"/php/kz_register.php";
         public static String method_loginToService = nameSpace_system+"/php/kz_login.php";
 
-        public static String Wy_List_Api = "https://api.mlwei.com/music/api/wy/";
+        public static String Wy_List_Api = "https://api88.net/api/netease/";
 
 }
 

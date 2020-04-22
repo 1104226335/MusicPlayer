@@ -166,6 +166,11 @@ public class PlaybackService extends Service implements IPlayback, IPlayback.Cal
     }
 
     @Override
+    public int getDuration() {
+        return mPlayer.getDuration();
+    }
+
+    @Override
     public void registerCallback(Callback callback) {
         mPlayer.registerCallback(callback);
     }

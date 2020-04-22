@@ -1,15 +1,25 @@
 package com.GraduationDesign.MusicPlayer.utils;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.GraduationDesign.MusicPlayer.Web.HttpCallback;
+import com.GraduationDesign.MusicPlayer.Web.HttpUtil;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommend;
 import com.GraduationDesign.MusicPlayer.ui.local.Adapter.CategoryDetail;
+import com.GraduationDesign.MusicPlayer.ui.recommend.WyRecommendListBean;
+import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,5 +53,25 @@ public class WyRecommendUtil {
             recommends.add(categoryDetail);
         }catch (IOException e){e.printStackTrace();}
         return recommends;
+    }
+    /**
+     * 获取重定向地址
+     *
+     * @param path
+     * @return
+     * @throws Exception
+     */
+    public static String getRedirectUrl(String path) {
+        String url = null;
+        try {
+            HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
+            conn.setInstanceFollowRedirects(false);
+            conn.setConnectTimeout(5000);
+            url = conn.getHeaderField("Location");
+            conn.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return url;
     }
 }
