@@ -1,0 +1,28 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0">
+
+  <group
+      android:translateX="-240.000000"
+      android:translateY="-35.000000">
+    <group
+        android:translateY="24.000000">
+      <group
+          android:translateX="240.000000"
+          android:translateY="11.000000">
+        <path
+            android:name="Bounds"
+            android:fillColor="@color/icon_selected"
+            android:fillAlpha="0.12"
+            android:pathData="M 12 0 C 18.627416998 0 24 5.37258300203 24 12 C 24 18.627416998 18.627416998 24 12 24 C 5.37258300203 24 0 18.627416998 0 12 C 0 5.37258300203 5.37258300203 0 12 0 Z"/>
+        <path
+            android:name="Shape"
+            android:fillColor="@color/icon_selected"
+            android:pathData="M22,9.24l-7.19,-0.62L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21 12,17.27 18.18,21l-1.63,-7.03L22,9.24zM12,15.4l-3.76,2.27 1,-4.28 -3.32,-2.88 4.38,-0.38L12,6.1l1.71,4.04 4.38,0.38 -3.32,2.88 1,4.28L12,15.4z"/>
+        />
+      </group>
+    </group>
+  </group>
+</vector>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.GraduationDesign.MusicPlayer">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".MusicPlayerApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/mp.app.name"
+        android:networkSecurityConfig="@xml/network_config"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Design.Light.NoActionBar">
+        <activity android:name=".ui.welcome.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.local.filesystem.FileSystemActivity"
+            android:label="@string/mp.activity.title.file_system"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.details.PlayListDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".player.PlaybackService">
+            <intent-filter>
+                <action android:name="com.GraduationDesign.MusicPlayer.ACTION.PLAY_TOGGLE" />
+                <action android:name="com.GraduationDesign.MusicPlayer.ACTION.PLAY_NEXT" />
+                <action android:name="com.GraduationDesign.MusicPlayer.ACTION.PLAY_LAST" />
+                <action android:name="com.GraduationDesign.MusicPlayer.ACTION.STOP_SERVICE" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.GraduationDesign.MusicPlayer.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".ui.login.RegisterActivity"
+            android:label="register" />
+        <activity android:name=".ui.settings.AccountBindActivitity" />
+        <activity android:name=".ui.settings.ChangeEmail" />
+        <activity android:name=".ui.settings.change_password" />
+        <activity android:name=".ui.settings.music_play_setting" />
+        <activity android:name=".ui.settings.AppAboutActivity" />
+
+    </application>
+
+</manifest>

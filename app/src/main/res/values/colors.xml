@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources  >
+
+    <!-- Common -->
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="back">#e554798b</color><!--每日推荐等用了这个颜色-->
+    <color name="setting_font_color">#565656</color><!--设置界面的字体颜色-->
+    <color name="login_font">#949494</color>
+    <color name="music_play">#aa199e7d</color><!--音乐播放界面符号颜色-->
+    <color name="icon_before_selected">#aa919191</color><!--上面四个小图标-->
+    <color name="icon_selected">#aa199e7d</color><!--上面四个小图标-->
+    <color name="icon_background">#effaf7</color><!--上面四个小图标的背景-->
+    <color name="setting_background">#effaf7</color><!--设置界面灰色调背景 efefef-->
+    <color name="setting_primary">#f8fdfc</color>
+    <color name="color_of_all_recommend">#82bfded3</color>
+
+    <color name="blue_hint">#596d76</color>
+    <color name="blue_white">#9CBDCC</color><!--原来设置中字体颜色9CBDCC-->
+
+    <!-- CharacterView -->
+    <color name="characterViewbackground">#9cccb8</color>
+    <color name="characterViewtextColor">#ddffef</color>
+
+    <!--icon_before_selected  FF67DDF7-->
+    <!--icon_selected FF4B8DDE    9CBDCC  DDF9FF-->
+
+
+    <color name="ToolBarTextColor">#060606</color>
+    <color name="whileGray">#a7a2a2</color>
+    <color name="blackGray">#5c5b5b</color>
+    <color name="colorControlActivated">#7AFFFFFF</color>
+    <color name="colorControlHighlight">#7AFFFFFF</color>
+    <color name="actionModeBackground">#babebf</color>
+    <color name="colorPrimary">#d7d9da</color>
+    <color name="shishijiushishi">#ffffff</color>
+    <color name="suibian">#aa94ece9</color>
+
+
+    <!-- Theme - Dark Blue -->
+    <color name="mp.theme.dark_blue.background">#3C5F78</color>
+    <color name="mp.theme.dark_blue.gradientColor">#507E9F</color>
+    <color name="mp.theme.dark_blue.colorControlActivated">#7AFFFFFF</color>
+    <color name="mp.theme.dark_blue.colorControlHighlight">#7AFFFFFF</color>
+
+    <color name="mp.theme.dark_blue.colorPrimary">#3C5F78</color>
+    <color name="mp.theme.dark_blue.colorPrimaryDark">#3C5F78</color>
+    <color name="mp.theme.dark_blue.colorAccent">#DDF9FF</color>
+    <color name="mp.theme.dark_blue.textColorPrimary">#DDF9FF</color>
+    <color name="mp.theme.dark_blue.textColorSecondary">#3C5F78</color>
+
+    <color name="mp.theme.dark_blue.actionMode.statusBarColor">#9CBDCC</color>
+    <color name="mp.theme.dark_blue.actionMode.background">#9CBDCC</color>
+
+    <color name="mp.line">#3DDDF9FF</color>
+    <color name="mp.list.background">#1ADDF9FF</color>
+    <color name="mp.list.background.selected">#6CDDF9FF</color>
+    <color name="mp.list.scrollThumb">#99DDF9FF</color>
+    <color name="mp.list.text.title">#DDF9FF</color>
+    <color name="mp.list.text.title.selected">#3C5F78</color>
+    <color name="mp.list.text.hint">#9CBDCC</color>
+    <color name="mp.list.text.hint.selected">#7C3C5F78</color>
+
+    <color name="mp.popupMenu.background">#B4D2E0</color>
+
+    <color name="mp.text.hint">#9CBDCC</color>
+
+    <!-- Segmented Control -->
+    <color name="mp.widget.segmented.default">?attr/colorAccent</color>
+    <color name="mp.widget.segmented.checked">#3C5F78</color>
+
+
+
+</resources>
