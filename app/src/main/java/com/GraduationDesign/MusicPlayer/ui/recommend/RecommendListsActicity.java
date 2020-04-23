@@ -18,18 +18,28 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.RxBus;
 import com.GraduationDesign.MusicPlayer.Web.CommonApi;
 import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
+import com.GraduationDesign.MusicPlayer.Web.TextHelper;
 import com.GraduationDesign.MusicPlayer.data.model.PlayList;
 import com.GraduationDesign.MusicPlayer.data.model.Song;
+import com.GraduationDesign.MusicPlayer.data.source.AppRepository;
+import com.GraduationDesign.MusicPlayer.event.PlayListUpdatedEvent;
 import com.GraduationDesign.MusicPlayer.event.PlaySongEvent;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseActivity;
 import com.GraduationDesign.MusicPlayer.ui.playlist.AddToPlayListDialogFragment;
 import com.GraduationDesign.MusicPlayer.ui.recommend.Adapter.RecommendListAdapter;
 import com.GraduationDesign.MusicPlayer.utils.WyRecommendUtil;
+
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 public class RecommendListsActicity extends BaseActivity {
     private String ListId,Key,ListName;
@@ -40,6 +50,8 @@ public class RecommendListsActicity extends BaseActivity {
     ProgressBar recommendLoading;
     Toolbar toolbar;
     Context mContext;
+
+    private CompositeSubscription mSubscriptions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +77,9 @@ public class RecommendListsActicity extends BaseActivity {
         emptyNotice.setVisibility(View.INVISIBLE);
         recommendLoading.setVisibility(View.VISIBLE);
         songlist.setVisibility(View.INVISIBLE);
+
         initData();
-
-
+        mSubscriptions = new CompositeSubscription();
     }
 
     public void initData(){
@@ -128,7 +140,7 @@ public class RecommendListsActicity extends BaseActivity {
                                         .setCallback(new AddToPlayListDialogFragment.Callback() {
                                             @Override
                                             public void onPlayListSelected(PlayList playList) {
-//                                                mPresenter.addSongToPlayList(song, playList);
+                                                addSongToPlayList(tmpsong, playList);
                                             }
                                         })
                                         .show(getSupportFragmentManager().beginTransaction(), "AddToPlayList");
@@ -179,5 +191,55 @@ public class RecommendListsActicity extends BaseActivity {
         //为ListView设置LayoutAnimationController属性；
         songlist.setLayoutAnimation(lac);
     }
+    public void addSongToPlayList(Song song, PlayList playList) {
+        if (playList.isFavorite()) {
+            song.setFavorite(true);
+        }
+        playList.addSong(song, 0);
+        Subscription subscription = AppRepository.getInstance().update(playList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<PlayList>() {
+                    @Override
+                    public void onStart() {
+                        showProgress();
+                    }
 
+                    @Override
+                    public void onCompleted(){
+                        hideProgress();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideProgress();
+                        handleError(e);
+                    }
+
+                    @Override
+                    public void onNext(PlayList playList) {
+                        RxBus.getInstance().post(new PlayListUpdatedEvent(playList));
+                    }
+                });
+        mSubscriptions.add(subscription);
+    }
+    public void showProgress() {
+        recommendLoading.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgress() {
+        recommendLoading.setVisibility(View.GONE);
+    }
+    public void handleError(Throwable error) {
+        TextHelper.showLongText(error.getMessage());
+    }
+    public void unsubscribe() {
+        mSubscriptions.clear();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unsubscribe();
+    }
 }
