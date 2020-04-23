@@ -48,6 +48,7 @@ public interface IPlayback {
     void removeCallbacks();
 
     void releasePlayer();
+    int getDuration();
 
     interface Callback {
 

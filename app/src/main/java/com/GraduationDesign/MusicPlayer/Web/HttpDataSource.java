@@ -78,7 +78,7 @@ public class HttpDataSource {
      * @param callback
      */
     public static void httpGet(String url, final mlweiCallback callback) {
-        Log.d("HttpGet URl", url);
+        Log.d("HttpGet URl For API", url);
         HttpUtil.sendGetRequest_okHttp(url, new HttpCallback() {
             @Override
             public void onFinish(Bitmap bm) {

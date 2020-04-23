@@ -62,7 +62,6 @@ public class BaseApi {
      * get通用返回实体api
      * @param url
      * @param params
-     * @param c 返回的实体类型
      * @param callback
      */
     protected static void getCommonApi(String url, Map<String, Object> params,  final ResultCallback callback) {

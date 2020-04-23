@@ -82,6 +82,8 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
             if (isDetached()) return;
 
             if (mPlayer.isPlaying()) {
+                textViewDuration.setText(TimeUtils.formatDuration(mPlayer.getDuration()));
+                seekBarProgress.setMax(mPlayer.getDuration());
                 int progress = (int) (seekBarProgress.getMax()
                         * ((float) mPlayer.getProgress() / (float) getCurrentSongDuration()));
                 updateProgressTextWithDuration(mPlayer.getProgress());
@@ -297,7 +299,6 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
         }
         return duration;
     }
-
     // Player Callbacks
 
     @Override

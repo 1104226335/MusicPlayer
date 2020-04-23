@@ -387,7 +387,7 @@ public class HttpUtil {
             url.append('&');
             url.append(name);
             url.append('=');
-
+            url.append(params.get(name));
             //不做URLEncoder处理
 //			try {
 //				url.append(URLEncoder.encode(String.valueOf(params.get(name)), UTF_8));
