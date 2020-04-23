@@ -10,10 +10,9 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="10dp"
         android:background="@color/setting_primary"
-        android:layout_marginBottom="@dimen/mp.divider.line"
-        />
+       />
     <!--android:background="?attr/selectableItemBackground"-->
 
     <android.support.v7.widget.AppCompatImageView
@@ -74,4 +73,10 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             />
     </FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/setting_primary"
+        android:layout_alignParentBottom="true"
+        />
 </RelativeLayout>

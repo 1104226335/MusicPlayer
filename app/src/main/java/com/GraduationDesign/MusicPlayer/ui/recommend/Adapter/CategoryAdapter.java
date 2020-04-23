@@ -1,4 +1,4 @@
-package com.GraduationDesign.MusicPlayer.ui.local.Adapter;
+package com.GraduationDesign.MusicPlayer.ui.recommend.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -39,8 +39,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 ,categoryDetailss.get(positio).getId());
         categoryMusicAdapter.setOnCategoryMusicListener(new CategoryMusicAdapter.CategoryMusicListener() {
             @Override
-            public void clickItem(String listid) {
-                musicListListener.OnClickItem(listid);
+            public void clickItem(String listid,String  name) {
+                musicListListener.OnClickItem(listid,name);
             }
         });
         holder.TVcategoryDetail.setAdapter(categoryMusicAdapter);
