@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/recommend_list_title"
@@ -18,6 +18,7 @@
         >
 
         <android.support.v7.widget.Toolbar
+            android:id="@+id/recommend_toolbar"
             xmlns:toolbar="http://schemas.android.com/apk/res-auto"
             style="@style/MP.Theme.Widget.Toolbar"
             toolbar:layout_scrollFlags="enterAlways"
@@ -33,17 +34,28 @@
         recyclerView:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/item_play_list_details_song"
         />
-
-    <TextView
-        style="@style/MP.Theme.TextAppearance.List.Empty"
-        android:text="@string/mp.play_list.details.empty"
-        tools:visibility="invisible"
-        />
-
+    <LinearLayout
+        android:id="@+id/ll_empty_notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="解析失败，换个歌单试试"/>
+    </LinearLayout>
     <ProgressBar
-        style="@style/MP.Theme.Widget.ProgressBar"
+        android:id="@+id/recommend_loading"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
         android:visibility="gone"
-        tools:visibility="invisible"
         />
 </android.support.design.widget.CoordinatorLayout>

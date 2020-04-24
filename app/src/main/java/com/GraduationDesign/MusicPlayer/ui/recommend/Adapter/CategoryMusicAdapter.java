@@ -1,4 +1,4 @@
-package com.GraduationDesign.MusicPlayer.ui.local.Adapter;
+package com.GraduationDesign.MusicPlayer.ui.recommend.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.GraduationDesign.MusicPlayer.ui.recommend.MusicListListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -24,7 +23,7 @@ public class CategoryMusicAdapter extends RecyclerView.Adapter<CategoryMusicAdap
     private Context mContext;
     CategoryMusicListener itemClick;
     public interface CategoryMusicListener {
-        void clickItem(String listid);
+        void clickItem(String listid,String name);
     }
 
     public void setOnCategoryMusicListener(CategoryMusicListener listener) {
@@ -54,10 +53,11 @@ public class CategoryMusicAdapter extends RecyclerView.Adapter<CategoryMusicAdap
                 .error(R.mipmap.bro2))
                 .into(viewHolder.musicListCover);
         final String listId = musicListId.get(i);
+        final String listname = musicListName.get(i);
         viewHolder.musicListCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClick.clickItem(listId);
+                itemClick.clickItem(listId,listname);
             }
         });
     }

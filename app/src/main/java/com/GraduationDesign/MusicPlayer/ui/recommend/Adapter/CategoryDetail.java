@@ -1,4 +1,4 @@
-package com.GraduationDesign.MusicPlayer.ui.local.Adapter;
+package com.GraduationDesign.MusicPlayer.ui.recommend.Adapter;
 
 import java.util.List;
 

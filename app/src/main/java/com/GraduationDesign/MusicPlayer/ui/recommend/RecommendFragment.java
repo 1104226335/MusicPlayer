@@ -18,8 +18,8 @@ import com.GraduationDesign.MusicPlayer.RxBus;
 import com.GraduationDesign.MusicPlayer.data.model.Song;
 import com.GraduationDesign.MusicPlayer.event.PlaySongEvent;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseFragment;
-import com.GraduationDesign.MusicPlayer.ui.local.Adapter.CategoryAdapter;
-import com.GraduationDesign.MusicPlayer.ui.local.Adapter.CategoryDetail;
+import com.GraduationDesign.MusicPlayer.ui.recommend.Adapter.CategoryAdapter;
+import com.GraduationDesign.MusicPlayer.ui.recommend.Adapter.CategoryDetail;
 import com.GraduationDesign.MusicPlayer.ui.local.ImageBannerHolder;
 import com.GraduationDesign.MusicPlayer.utils.SecretUtil;
 import com.GraduationDesign.MusicPlayer.utils.TimeHelper;
@@ -117,10 +117,11 @@ public class RecommendFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void OnClickItem(String ListId) {
+                    public void OnClickItem(String ListId,String name) {
                         Intent intent = new Intent(getActivity(),RecommendListsActicity.class);
                         intent.putExtra("ListId",ListId);
                         intent.putExtra("Key",APIKEY);
+                        intent.putExtra("ListName",name);
                         startActivity(intent);
                     }
                 });

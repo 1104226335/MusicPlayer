@@ -1,9 +1,8 @@
-package com.GraduationDesign.MusicPlayer.ui.recommend;
+package com.GraduationDesign.MusicPlayer.ui.recommend.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +13,9 @@ import android.widget.TextView;
 
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.data.model.Song;
-import com.GraduationDesign.MusicPlayer.ui.local.Adapter.CategoryAdapter;
-import com.GraduationDesign.MusicPlayer.ui.local.Adapter.CategoryDetail;
-import com.GraduationDesign.MusicPlayer.ui.local.Adapter.CategoryMusicAdapter;
+import com.GraduationDesign.MusicPlayer.ui.details.SongAdapter;
+import com.GraduationDesign.MusicPlayer.ui.recommend.RecommendItemLitener;
+import com.GraduationDesign.MusicPlayer.ui.recommend.WyRecommendListBean;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -28,6 +27,7 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
     private Context contexts;
     private List<WyRecommendListBean.BodyBean> categoryDetailss;
     private RecommendItemLitener musicListListener;
+    private ActionCallback mCallback;
     public RecommendListAdapter(Context context, List<WyRecommendListBean.BodyBean> categoryDetails,final RecommendItemLitener musicListListener){
         this.contexts = context;
         this.categoryDetailss = categoryDetails;
@@ -61,6 +61,21 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
                 musicListListener.OnClickItem(song);
             }
         });
+        holder.action.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCallback != null) {
+                    Song song = new Song();
+                    song.setSize(0);
+                    song.setDuration(200000);
+                    song.setPath(categoryDetailss.get(positio).getUrl());
+                    song.setTitle(categoryDetailss.get(positio).getTitle());
+                    song.setDisplayName(categoryDetailss.get(positio).getTitle());
+                    song.setArtist(categoryDetailss.get(positio).getAuthor());
+                    mCallback.onAction(v, song);
+                }
+            }
+        });
 
     }
 
@@ -83,5 +98,11 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
             linearLayout = view.findViewById(R.id.ll_recommend_song_play_net);
         }
 
+    }
+    public void setActionCallback(ActionCallback callback) {
+        mCallback = callback;
+    }
+    public interface ActionCallback {
+        void onAction(View actionView, Song song);
     }
 }
