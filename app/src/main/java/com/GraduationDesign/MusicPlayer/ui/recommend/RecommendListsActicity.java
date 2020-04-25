@@ -35,6 +35,10 @@ import com.GraduationDesign.MusicPlayer.ui.playlist.AddToPlayListDialogFragment;
 import com.GraduationDesign.MusicPlayer.ui.recommend.Adapter.RecommendListAdapter;
 import com.GraduationDesign.MusicPlayer.utils.WyRecommendUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -196,6 +200,26 @@ public class RecommendListsActicity extends BaseActivity {
             song.setFavorite(true);
         }
         playList.addSong(song, 0);
+        Subscription insertSubscription = AppRepository.getInstance().insert(song)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Song>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Song song) {
+
+                    }
+                });
+        mSubscriptions.add(insertSubscription);
         Subscription subscription = AppRepository.getInstance().update(playList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

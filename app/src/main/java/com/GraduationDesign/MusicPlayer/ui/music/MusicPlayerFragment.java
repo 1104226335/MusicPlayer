@@ -31,6 +31,10 @@ import com.GraduationDesign.MusicPlayer.ui.base.BaseFragment;
 import com.GraduationDesign.MusicPlayer.ui.widget.ShadowImageView;
 import com.GraduationDesign.MusicPlayer.utils.AlbumUtils;
 import com.GraduationDesign.MusicPlayer.utils.TimeUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
+
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -375,12 +379,21 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
         // Step 4: Keep these things updated
         // - Album rotation
         // - Progress(textViewProgress & seekBarProgress)
-        Bitmap bitmap = AlbumUtils.parseAlbum(song);
-        if (bitmap == null) {
-            imageViewAlbum.setImageResource(R.drawable.default_record_album);
-        } else {
-            imageViewAlbum.setImageBitmap(AlbumUtils.getCroppedBitmap(bitmap));
+        if(song.getPath().contains("http")){
+            Glide.with(getActivity())
+                    .load(song.getAlbum())
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop())
+                    .error(R.drawable.default_record_album))
+                    .into(imageViewAlbum);
+        }else {
+            Bitmap bitmap = AlbumUtils.parseAlbum(song);
+            if (bitmap == null) {
+                imageViewAlbum.setImageResource(R.drawable.default_record_album);
+            } else {
+                imageViewAlbum.setImageBitmap(AlbumUtils.getCroppedBitmap(bitmap));
+            }
         }
+
         imageViewAlbum.pauseRotateAnimation();
         mHandler.removeCallbacks(mProgressCallback);
         if (mPlayer.isPlaying()) {

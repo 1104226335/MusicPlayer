@@ -68,6 +68,7 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
                     Song song = new Song();
                     song.setSize(0);
                     song.setDuration(200000);
+                    song.setAlbum(categoryDetailss.get(positio).getPic());
                     song.setPath(categoryDetailss.get(positio).getUrl());
                     song.setTitle(categoryDetailss.get(positio).getTitle());
                     song.setDisplayName(categoryDetailss.get(positio).getTitle());

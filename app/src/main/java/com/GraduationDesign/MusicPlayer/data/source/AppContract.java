@@ -45,6 +45,8 @@ import rx.Observable;
 
     Observable<List<Song>> insert(List<Song> songs);
 
+    Observable<Song> insert(Song songs);
+
     Observable<Song> update(Song song);
 
     Observable<Song> setSongAsFavorite(Song song, boolean favorite);
