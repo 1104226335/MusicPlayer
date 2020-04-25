@@ -120,7 +120,7 @@ public class RecommendListsActicity extends BaseActivity {
                     @Override
                     public void run() {
                         String path = WyRecommendUtil.getRedirectUrl(song.getPath());
-//                        song.setPath(path);
+                        song.setPath(path);
                         Log.e("MusicUrl B",song.getPath());
                         RxBus.getInstance().post(new PlaySongEvent(song));
                     }
