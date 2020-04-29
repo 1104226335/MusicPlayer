@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,34 +17,29 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.RxBus;
 import com.GraduationDesign.MusicPlayer.Web.CommonApi;
 import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommendListBean;
 import com.GraduationDesign.MusicPlayer.data.model.PlayList;
 import com.GraduationDesign.MusicPlayer.data.model.Song;
 import com.GraduationDesign.MusicPlayer.data.source.AppRepository;
+import com.GraduationDesign.MusicPlayer.event.PlayListNowEvent;
 import com.GraduationDesign.MusicPlayer.event.PlayListUpdatedEvent;
-import com.GraduationDesign.MusicPlayer.event.PlaySongEvent;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseActivity;
 import com.GraduationDesign.MusicPlayer.ui.playlist.AddToPlayListDialogFragment;
 import com.GraduationDesign.MusicPlayer.ui.recommend.Adapter.RecommendListAdapter;
-import com.GraduationDesign.MusicPlayer.utils.WyRecommendUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
-public class RecommendListsActicity extends BaseActivity {
+public class RecommendListsActivity extends BaseActivity {
     private String ListId,Key,ListName;
     WyRecommendListBean songList;
     RecyclerView songlist;
@@ -113,16 +107,17 @@ public class RecommendListsActicity extends BaseActivity {
 
         recommendListAdapter = new RecommendListAdapter(this, songList.getBody(), new RecommendItemLitener() {
             @Override
-            public void OnClickItem(final Song song) {
+            public void OnClickItem(final PlayList songs, final int position) {
 
-                Log.e("MusicUrl A",song.getPath());
+//                Log.e("MusicUrl A",song.getPath());
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String path = WyRecommendUtil.getRedirectUrl(song.getPath());
-                        song.setPath(path);
-                        Log.e("MusicUrl B",song.getPath());
-                        RxBus.getInstance().post(new PlaySongEvent(song));
+//                        String path = WyRecommendUtil.getRedirectUrl(song.getPath());
+//                        song.setPath(path);
+//                        Log.e("MusicUrl B",song.getPath());
+//                        RxBus.getInstance().post(new PlaySongEvent(song));
+                        RxBus.getInstance().post(new PlayListNowEvent(songs,position));
                     }
                 }).start();
 

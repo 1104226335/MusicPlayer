@@ -12,10 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.GraduationDesign.MusicPlayer.R;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.BodyBean;
+import com.GraduationDesign.MusicPlayer.data.model.PlayList;
 import com.GraduationDesign.MusicPlayer.data.model.Song;
-import com.GraduationDesign.MusicPlayer.ui.details.SongAdapter;
 import com.GraduationDesign.MusicPlayer.ui.recommend.RecommendItemLitener;
-import com.GraduationDesign.MusicPlayer.ui.recommend.WyRecommendListBean;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommendListBean;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -25,10 +26,11 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
 
 
     private Context contexts;
-    private List<WyRecommendListBean.BodyBean> categoryDetailss;
+    private List<BodyBean> categoryDetailss;
     private RecommendItemLitener musicListListener;
     private ActionCallback mCallback;
-    public RecommendListAdapter(Context context, List<WyRecommendListBean.BodyBean> categoryDetails,final RecommendItemLitener musicListListener){
+    private PlayList recommentList = new PlayList();
+    public RecommendListAdapter(Context context, List<BodyBean> categoryDetails,final RecommendItemLitener musicListListener){
         this.contexts = context;
         this.categoryDetailss = categoryDetails;
         this.musicListListener = musicListListener;
@@ -40,6 +42,15 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
 
     @Override
     public void onBindViewHolder(@NonNull RecommendListAdapter.RecommendViewHolder holder, final int positio) {
+        final Song song = new Song();
+        song.setId(categoryDetailss.get(positio).getId());
+        song.setSize(0);
+        song.setDuration(200000);
+        song.setPath(categoryDetailss.get(positio).getUrl());
+        song.setTitle(categoryDetailss.get(positio).getTitle());
+        song.setDisplayName(categoryDetailss.get(positio).getTitle());
+        song.setArtist(categoryDetailss.get(positio).getAuthor());
+        recommentList.addSong(song);
         holder.songAuthor.setText(categoryDetailss.get(positio).getAuthor());
         holder.songTitle.setText(categoryDetailss.get(positio).getTitle());
         Glide.with(contexts)
@@ -51,28 +62,13 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Song song = new Song();
-                song.setSize(0);
-                song.setDuration(200000);
-                song.setPath(categoryDetailss.get(positio).getUrl());
-                song.setTitle(categoryDetailss.get(positio).getTitle());
-                song.setDisplayName(categoryDetailss.get(positio).getTitle());
-                song.setArtist(categoryDetailss.get(positio).getAuthor());
-                musicListListener.OnClickItem(song);
+                musicListListener.OnClickItem(recommentList,positio);
             }
         });
         holder.action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mCallback != null) {
-                    Song song = new Song();
-                    song.setSize(0);
-                    song.setDuration(200000);
-                    song.setAlbum(categoryDetailss.get(positio).getPic());
-                    song.setPath(categoryDetailss.get(positio).getUrl());
-                    song.setTitle(categoryDetailss.get(positio).getTitle());
-                    song.setDisplayName(categoryDetailss.get(positio).getTitle());
-                    song.setArtist(categoryDetailss.get(positio).getAuthor());
                     mCallback.onAction(v, song);
                 }
             }

@@ -12,6 +12,10 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.GraduationDesign.MusicPlayer.R;
+import com.GraduationDesign.MusicPlayer.Web.CommonApi;
+import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
+import com.GraduationDesign.MusicPlayer.Web.TextHelper;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyComment;
 import com.GraduationDesign.MusicPlayer.ui.main.MainActivity;
 
 import java.util.Timer;
@@ -26,7 +30,18 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         checkPermission();
+        CommonApi.getWyComment("483671599", 5, 0, new ResultCallback() {
+            @Override
+            public void onFinish(Object o, int code) {
+                WyComment wyComment = (WyComment)o;
+                TextHelper.showLongText(wyComment.getHotComments().get(0).getContent());
+            }
 
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
     }
 
     private void startMainActivity(){

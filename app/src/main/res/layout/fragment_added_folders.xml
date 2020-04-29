@@ -59,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_gravity="center_horizontal"
-                        android:text="个性电台"
+                        android:text="在线搜索"
                         android:textColor="@color/setting_font_color"
                         android:textSize="10dp"
                         />

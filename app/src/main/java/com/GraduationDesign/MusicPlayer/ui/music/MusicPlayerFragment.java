@@ -1,5 +1,6 @@
 package com.GraduationDesign.MusicPlayer.ui.music;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.GraduationDesign.MusicPlayer.player.IPlayback;
 import com.GraduationDesign.MusicPlayer.player.PlayMode;
 import com.GraduationDesign.MusicPlayer.player.PlaybackService;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseFragment;
+import com.GraduationDesign.MusicPlayer.ui.comment.MusicCommentActivity;
 import com.GraduationDesign.MusicPlayer.ui.widget.ShadowImageView;
 import com.GraduationDesign.MusicPlayer.utils.AlbumUtils;
 import com.GraduationDesign.MusicPlayer.utils.TimeUtils;
@@ -66,7 +68,8 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
     TextView textViewDuration;
     @BindView(R.id.seek_bar)
     SeekBar seekBarProgress;
-
+    @BindView(R.id.img_music_comment)
+    ImageView imgMusicComment;
     @BindView(R.id.button_play_mode_toggle)
     ImageView buttonPlayModeToggle;
     @BindView(R.id.button_play_toggle)
@@ -208,6 +211,12 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
             view.setEnabled(false);
             mPresenter.setSongAsFavorite(currentSong, !currentSong.isFavorite());
         }
+    }
+    @OnClick(R.id.img_music_comment)
+    public void onImageToMusicComment(View view){
+        Intent intent = new Intent(getActivity(),MusicCommentActivity.class);
+        intent.putExtra("MusicId",Integer.toString(mPlayer.getPlayingSong().getId()));
+        startActivity(intent);
     }
 
     // RXBus Events

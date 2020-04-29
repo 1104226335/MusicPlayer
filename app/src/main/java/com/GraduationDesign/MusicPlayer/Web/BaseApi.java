@@ -1,6 +1,6 @@
 package com.GraduationDesign.MusicPlayer.Web;
 
-import com.GraduationDesign.MusicPlayer.ui.recommend.WyRecommendListBean;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommendListBean;
 import com.google.gson.Gson;
 
 import java.util.Map;
@@ -81,29 +81,21 @@ public class BaseApi {
             }
         });
     }
+    protected static void getEntityApi(String url, Map<String, Object> params, final Class c, final ResultCallback callback) {
+        HttpDataSource.httpGetJson(HttpUtil.makeURL(url,params),new APICallBack(){
+            @Override
+            public void onFinish(String jsonModel) {
+               callback.onFinish(new Gson().fromJson(jsonModel, c),1);
 
-//    /**
-//     * get通用返回字符串api
-//     * @param url
-//     * @param params
-//     * @param callback
-//     */
-//    protected static void getCommonReturnStringApi(String url, Map<String, Object> params, final ResultCallback callback) {
-//        HttpDataSource.httpGet(HttpUtil.makeURL(url,params), new JsonCallback() {
-//            @Override
-//            public void onFinish(JsonModel jsonModel) {
-//                if (jsonModel.isSuccess()) {
-//                    callback.onFinish(jsonModel.getResult(), jsonModel.getError());
-//                } else {
-//                    noSuccess(jsonModel,callback);
-//                }
-//            }
-//            @Override
-//            public void onError(Exception e) {
-//              error(e,callback);
-//            }
-//        });
-//    }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                callback.onError(e);
+            }
+        });
+    }
+
 
     /**
      * get通用返回Html字符串api

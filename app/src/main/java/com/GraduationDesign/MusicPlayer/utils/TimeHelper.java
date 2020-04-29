@@ -74,6 +74,16 @@ public class TimeHelper {
         res = simpleDateFormat.format(date);
         return res;
     }
+    /*
+     * 将时间戳转换为时间
+     */
+    public static String stampToDate(long s){
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date(s);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
 
     /**
      * 时间对象转字符串
