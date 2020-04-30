@@ -1,38 +1,26 @@
 package com.GraduationDesign.MusicPlayer.ui.comment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.GraduationDesign.MusicPlayer.R;
-import com.GraduationDesign.MusicPlayer.Web.CommonApi;
-import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
+import com.GraduationDesign.MusicPlayer.Web.ErrorCode;
+import com.GraduationDesign.MusicPlayer.Web.TextHelper;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyComment;
-import com.GraduationDesign.MusicPlayer.data.model.Song;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseActivity;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observable;
-import rx.Scheduler;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.observers.Subscribers;
-import rx.schedulers.Schedulers;
 
 public class MusicCommentActivity extends BaseActivity implements MusicCommentContract.View{
 
@@ -57,7 +45,9 @@ public class MusicCommentActivity extends BaseActivity implements MusicCommentCo
                 case 1:
                     adapter.notifyDataSetChanged();
                     break;
-
+                case ErrorCode.sendComment_success:
+                    TextHelper.showLongText("评论成功");
+                    break;
             }
             return false;
         }
@@ -83,7 +73,7 @@ public class MusicCommentActivity extends BaseActivity implements MusicCommentCo
     public void sendContent(){
         String content = myCommentContent.getText().toString();
         if(!content.isEmpty()){
-            presenter.sendComment(content);
+            presenter.sendComment(content,MusicId);
             myCommentContent.setText("");
         }
     }
@@ -101,6 +91,18 @@ public class MusicCommentActivity extends BaseActivity implements MusicCommentCo
     @Override
     public void hideLoading() {
 
+    }
+
+    @Override
+    public String getUserEmail() {
+        SharedPreferences shared = getSharedPreferences("LoginMsg",Context.MODE_PRIVATE);
+
+        return shared.getString("UserEmail","error");
+    }
+
+    @Override
+    public void getSendState(int code) {
+        mhandler.sendMessage(mhandler.obtainMessage(code));
     }
 
     @Override

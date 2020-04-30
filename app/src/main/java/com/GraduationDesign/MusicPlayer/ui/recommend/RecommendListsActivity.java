@@ -2,9 +2,11 @@ package com.GraduationDesign.MusicPlayer.ui.recommend;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -32,6 +35,13 @@ import com.GraduationDesign.MusicPlayer.event.PlayListUpdatedEvent;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseActivity;
 import com.GraduationDesign.MusicPlayer.ui.playlist.AddToPlayListDialogFragment;
 import com.GraduationDesign.MusicPlayer.ui.recommend.Adapter.RecommendListAdapter;
+import com.GraduationDesign.MusicPlayer.utils.BlurUtil;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.request.RequestOptions;
+
+import java.security.MessageDigest;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -40,13 +50,14 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 public class RecommendListsActivity extends BaseActivity {
-    private String ListId,Key,ListName;
+    private String ListId,Key,ListName,ListPic;
     WyRecommendListBean songList;
     RecyclerView songlist;
     RecommendListAdapter recommendListAdapter;
     LinearLayout emptyNotice;
     ProgressBar recommendLoading;
     Toolbar toolbar;
+    ImageView listPic,clearPic;
     Context mContext;
 
     private CompositeSubscription mSubscriptions;
@@ -58,20 +69,22 @@ public class RecommendListsActivity extends BaseActivity {
         ListId = intent.getStringExtra("ListId");
         Key = intent.getStringExtra("Key");
         ListName = intent.getStringExtra("ListName");
+        ListPic = intent.getStringExtra("ListPic");
         setContentView(R.layout.activity_recommend_lists_acticity);
         emptyNotice = findViewById(R.id.ll_empty_notify);
         songlist = findViewById(R.id.recommend_list_detail);
         recommendLoading = findViewById(R.id.recommend_loading);
         toolbar = findViewById(R.id.recommend_toolbar);
+        listPic = findViewById(R.id.iv_recommend_list_pic);
+        clearPic = findViewById(R.id.iv_recommend_pic);
         supportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(ListName);
-        }
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(ListName);
+            getSupportActionBar().setSubtitle("推荐");
         }
         songlist.setLayoutManager(new LinearLayoutManager(this));
 
+        setListPicture();
         emptyNotice.setVisibility(View.INVISIBLE);
         recommendLoading.setVisibility(View.VISIBLE);
         songlist.setVisibility(View.INVISIBLE);
@@ -108,15 +121,9 @@ public class RecommendListsActivity extends BaseActivity {
         recommendListAdapter = new RecommendListAdapter(this, songList.getBody(), new RecommendItemLitener() {
             @Override
             public void OnClickItem(final PlayList songs, final int position) {
-
-//                Log.e("MusicUrl A",song.getPath());
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-//                        String path = WyRecommendUtil.getRedirectUrl(song.getPath());
-//                        song.setPath(path);
-//                        Log.e("MusicUrl B",song.getPath());
-//                        RxBus.getInstance().post(new PlaySongEvent(song));
                         RxBus.getInstance().post(new PlayListNowEvent(songs,position));
                     }
                 }).start();
@@ -156,7 +163,31 @@ public class RecommendListsActivity extends BaseActivity {
         songlist.setAdapter(recommendListAdapter);
         mhandler.sendMessage(mhandler.obtainMessage(3));
     }
+    public void setListPicture(){
+        Glide.with(this)
+                .load(ListPic)
+                .into(clearPic);
+        Glide.with(this)
+                .load(ListPic)
+                .apply(new RequestOptions()
+                        .placeholder(R.mipmap.bro1)
+                        .error(R.mipmap.bro1)
+                        .transform(new BitmapTransformation() {
+                            @Override
+                            protected Bitmap transform(@NonNull BitmapPool pool,
+                                                       @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+                                // 对得到的 Bitmap 进行虚化处理
+                                return BlurUtil.blurBitmap(getApplicationContext(),
+                                        toTransform, 5, 8);
+                            }
 
+                            @Override
+                            public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+
+                            }
+                        }))
+                .into(listPic);
+    }
     private Handler mhandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {

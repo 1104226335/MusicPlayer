@@ -63,6 +63,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
             return false;
         }
     });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

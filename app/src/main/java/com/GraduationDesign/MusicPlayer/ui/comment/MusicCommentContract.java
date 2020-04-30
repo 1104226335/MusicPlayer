@@ -20,11 +20,15 @@ public interface MusicCommentContract {
 
         void setAdapter(List<WyComment.HotCommentsBean> hotComments);
 
+        String getUserEmail();
+
+        void getSendState(int code);
+
     }
 
     interface Presenter  {
         void start();
 
-        void sendComment(String content);
+        void sendComment(String content,String musicId);
     }
 }

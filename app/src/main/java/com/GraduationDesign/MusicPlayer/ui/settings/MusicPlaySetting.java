@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.GraduationDesign.MusicPlayer.R;
 
-public class music_play_setting extends AppCompatActivity {
+public class MusicPlaySetting extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

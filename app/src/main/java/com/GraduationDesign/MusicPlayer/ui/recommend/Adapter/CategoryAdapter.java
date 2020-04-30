@@ -39,8 +39,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 ,categoryDetailss.get(positio).getId());
         categoryMusicAdapter.setOnCategoryMusicListener(new CategoryMusicAdapter.CategoryMusicListener() {
             @Override
-            public void clickItem(String listid,String  name) {
-                musicListListener.OnClickItem(listid,name);
+            public void clickItem(String listid,String  name,String ListPic) {
+                musicListListener.OnClickItem(listid,name,ListPic);
             }
         });
         holder.TVcategoryDetail.setAdapter(categoryMusicAdapter);

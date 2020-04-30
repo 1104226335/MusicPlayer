@@ -1,5 +1,7 @@
 package com.GraduationDesign.MusicPlayer.Web;
 
+import android.util.Log;
+
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommendListBean;
 import com.google.gson.Gson;
 
@@ -31,6 +33,19 @@ public class BaseApi {
             @Override
             public void onError(Exception e) {
                 error(e,callback);
+            }
+        });
+    }
+    protected static void postCommonEntity(String url, Map<String, Object> params, final Class c, final ResultCallback callback) {
+        HttpDataSource.httpPost(url, HttpUtil.makePostOutput(params), new APICallBack() {
+            @Override
+            public void onFinish(String json) {
+                callback.onFinish(new Gson().fromJson(json,c),1);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
             }
         });
     }
@@ -85,6 +100,7 @@ public class BaseApi {
         HttpDataSource.httpGetJson(HttpUtil.makeURL(url,params),new APICallBack(){
             @Override
             public void onFinish(String jsonModel) {
+                Log.d("Http", "getEntityApi：" + jsonModel);
                callback.onFinish(new Gson().fromJson(jsonModel, c),1);
 
             }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_item_pass"
+        android:title="通过"
+        />
+    <item
+        android:id="@+id/menu_item_failed_pass"
+        android:title="删除"
+        />
+</menu>

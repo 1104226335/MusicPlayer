@@ -36,7 +36,7 @@ public class AccountBindActivitity extends AppCompatActivity {
         startActivity(goto_changeEmail);
     }
     private void goto_changePassword(){
-        Intent goto_changePassword=new Intent(this,change_password.class);
+        Intent goto_changePassword=new Intent(this,ChangePassword.class);
         startActivity(goto_changePassword);
     }
 }

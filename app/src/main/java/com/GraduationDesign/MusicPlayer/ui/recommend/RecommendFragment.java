@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.GraduationDesign.MusicPlayer.R;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommend;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseFragment;
 import com.GraduationDesign.MusicPlayer.ui.recommend.Adapter.CategoryAdapter;
 import com.GraduationDesign.MusicPlayer.ui.recommend.Adapter.CategoryDetail;
@@ -41,7 +42,12 @@ public class RecommendFragment extends BaseFragment {
     @BindView(R.id.rv_press_category_novel_list)
     RecyclerView musicLists;
     @BindView(R.id.test_internet_music)
-    LinearLayout linearLayout;
+    LinearLayout llSearch;
+    @BindView(R.id.ll_recommend_everyday)
+    LinearLayout recommendEveryday;
+    @BindView(R.id.ll_recommend_top)
+    LinearLayout recommendTop;
+
     Unbinder butterKnife;
     List<String> list = new ArrayList<>();
     String APIKEY ;
@@ -85,6 +91,26 @@ public class RecommendFragment extends BaseFragment {
         Intent intent = new Intent(getActivity(),SearchActivity.class);
         startActivity(intent);
     }
+    @OnClick(R.id.ll_recommend_everyday)
+    public void onRecommendEveryDay(){
+        WyRecommend wyRecommend = new WyRecommend("https://p1.music.126.net/a0tVGD3JO5IRxEbziPJeBg==/109951164900099655.jpg","于鲜花盛开中，吟唱绚烂春色","4901625354");
+        Intent intent = new Intent(getActivity(),RecommendListsActivity.class);
+        intent.putExtra("ListId",wyRecommend.getId());
+        intent.putExtra("ListName",wyRecommend.getName());
+        intent.putExtra("ListPic",wyRecommend.getCoverUrl());
+        intent.putExtra("Key",APIKEY);
+        startActivity(intent);
+    }
+    @OnClick(R.id.ll_recommend_top)
+    public void onSearchTop(){
+        WyRecommend wyRecommend = new WyRecommend("https://p3.music.126.net/GhhuF6Ep5Tq9IEvLsyCN7w==/18708190348409091.jpg","音乐热歌榜","3778678");
+        Intent intent = new Intent(getActivity(),RecommendListsActivity.class);
+        intent.putExtra("ListId",wyRecommend.getId());
+        intent.putExtra("ListName",wyRecommend.getName());
+        intent.putExtra("ListPic",wyRecommend.getCoverUrl());
+        intent.putExtra("Key",APIKEY);
+        startActivity(intent);
+    }
 
     public void initData(){
         new Thread(new Runnable() {
@@ -111,11 +137,12 @@ public class RecommendFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void OnClickItem(String ListId,String name) {
+                    public void OnClickItem(String ListId,String name,String ListPic) {
                         Intent intent = new Intent(getActivity(),RecommendListsActivity.class);
                         intent.putExtra("ListId",ListId);
                         intent.putExtra("Key",APIKEY);
                         intent.putExtra("ListName",name);
+                        intent.putExtra("ListPic",ListPic);
                         startActivity(intent);
                     }
                 });

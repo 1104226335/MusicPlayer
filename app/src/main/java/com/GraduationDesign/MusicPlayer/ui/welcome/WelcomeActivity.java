@@ -30,18 +30,6 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         checkPermission();
-        CommonApi.getWyComment("483671599", 5, 0, new ResultCallback() {
-            @Override
-            public void onFinish(Object o, int code) {
-                WyComment wyComment = (WyComment)o;
-                TextHelper.showLongText(wyComment.getHotComments().get(0).getContent());
-            }
-
-            @Override
-            public void onError(Exception e) {
-
-            }
-        });
     }
 
     private void startMainActivity(){

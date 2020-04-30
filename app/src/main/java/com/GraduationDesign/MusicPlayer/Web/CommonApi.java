@@ -1,12 +1,17 @@
 package com.GraduationDesign.MusicPlayer.Web;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.LoginBean;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyCommentBean;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyComment;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommendListBean;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WySearchResult;
 import com.GraduationDesign.MusicPlayer.utils.StringHelper;
+import com.GraduationDesign.MusicPlayer.utils.TimeHelper;
 
 /**
  * Created by zhao on 2017/7/24.
@@ -21,10 +26,10 @@ public class CommonApi extends BaseApi{
         register.put("username",Username);
         register.put("UserEmail",Useremail);
         register.put("password",password);
-        postCommonReturnStringApi(URLCONST.method_RegisterToService, register, new ResultCallback() {
+        postCommonEntity(URLCONST.method_RegisterToService, register,LoginBean.class,  new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
-                callback.onFinish((String)o,code);
+                callback.onFinish(o,code);
             }
 
             @Override
@@ -38,10 +43,10 @@ public class CommonApi extends BaseApi{
         Map<String,Object> login = new HashMap<>();
         login.put("UserEmail",email);
         login.put("UserPassword",password);
-        postCommonReturnStringApi(URLCONST.method_loginToService, login, new ResultCallback() {
+        postCommonEntity(URLCONST.method_loginToService, login,LoginBean.class, new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
-                callback.onFinish((String)o,code);
+                callback.onFinish(o,code);
             }
 
             @Override
@@ -86,6 +91,7 @@ public class CommonApi extends BaseApi{
         getEntityApi(URLCONST.Wy_comment_Api+Id,param, WyComment.class,  new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
+                Log.d("Http", "getWyComment：" + o.toString());
                 callback.onFinish(o,code);
             }
 
@@ -97,16 +103,16 @@ public class CommonApi extends BaseApi{
     }
 
     /**
-     * @param userId 用户Id
+     * @param userEmail 用户Email
      * @param callback callback
      */
-    public static void sendMyComment(String userId,String musicid,String date,String content,final ResultCallback callback){
-
+    public static void sendMyComment(String userEmail,String musicid,String content,final ResultCallback callback){
+        String date = TimeHelper.getStringDateForKey("yyyy-MM-dd HH:mm:ss");
         Map<String,Object> param = new HashMap<>();
-        param.put("userId",userId);
+        param.put("userEmail",userEmail);
         param.put("date",date);
         param.put("content",content);
-        param.put("musicid",musicid);
+        param.put("musicId",musicid);
         postCommonReturnStringApi(URLCONST.method_sendmycomment, param, new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
@@ -131,6 +137,27 @@ public class CommonApi extends BaseApi{
         getEntityApi(URLCONST.Wy_List_Api, param,WySearchResult.class,  new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
+                Log.d("Http", "getWySearch：" + o);
+                callback.onFinish(o,code);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+    }
+    /**
+     * @param callback callback
+     */
+    public static void checkMyComment(String type,int commentId,final ResultCallback callback){
+        Map<String,Object> param = new HashMap<>();
+        param.put("type",type);
+        param.put("code",commentId);
+        getEntityApi(URLCONST.method_checkmycomment, param,MyCommentBean.class,  new ResultCallback() {
+            @Override
+            public void onFinish(Object o, int code) {
+                Log.d("Http", "checkMyComment：" + o);
                 callback.onFinish(o,code);
             }
 
