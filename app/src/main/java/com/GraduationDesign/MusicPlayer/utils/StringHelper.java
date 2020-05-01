@@ -1,5 +1,6 @@
 package com.GraduationDesign.MusicPlayer.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Random;
@@ -23,6 +24,24 @@ public class StringHelper {
         return m.find();
     }
 
+    /**
+     * 对中文进行字符集编码
+     * @param encoded
+     * @return
+     */
+    public static String urlEncodeChinese(String encoded) {
+        try {
+            Matcher matcher = Pattern.compile("[\\u4e00-\\u9fa5]").matcher(encoded);
+            String tmp = "";
+            while (matcher.find()) {
+                tmp = matcher.group();
+                encoded = encoded.replaceAll(tmp, URLEncoder.encode(tmp, "UTF-8"));
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return encoded;
+    }
     /**
      * 字符集编码
      * @param encoded

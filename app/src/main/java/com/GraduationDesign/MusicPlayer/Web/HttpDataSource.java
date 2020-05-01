@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.GraduationDesign.MusicPlayer.ui.recommend.WyRecommendListBean;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommendListBean;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -126,6 +126,54 @@ public class HttpDataSource {
         });
     }
 
+
+    /**
+     * http请求 (get)
+     * @param url
+     * @param callback
+     */
+    public static void httpGetJson(String url, final APICallBack callback) {
+        Log.d("HttpGet URl For API", url);
+        HttpUtil.sendGetRequest_okHttp(url, new HttpCallback() {
+            @Override
+            public void onFinish(Bitmap bm) {
+
+            }
+
+            @Override
+            public void onFinish(InputStream in) {
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                    StringBuilder response = new StringBuilder();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        response.append(line);
+                        line = reader.readLine();
+                    }
+                    if (callback != null) {
+                        Log.d("Http", "read finish：" + response.toString());
+                        callback.onFinish(response.toString());
+                    }
+                } catch (Exception e) {
+                    Log.d("Http", "read finish：" + e.toString());
+                    callback.onError(e);
+                }
+            }
+
+            @Override
+            public void onFinish(String response) {
+
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if (callback != null) {
+                    callback.onError(e);
+                }
+            }
+
+        });
+    }
     /**
      * http请求 (post)
      * @param url
@@ -157,6 +205,46 @@ public class HttpDataSource {
 
                         callback.onFinish(jsonModel);
                         Log.d("Http", "RSA finish：" + new Gson().toJson(jsonModel));
+                    }
+                } catch (Exception e) {
+                    callback.onError(e);
+                }
+            }
+
+            @Override
+            public void onFinish(String response) {
+                Log.e("http", response);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                if (callback != null) {
+                    callback.onError(e);
+                }
+            }
+        });
+    }
+    public static void httpPost(String url, FormBody.Builder output, final APICallBack callback) {
+        Log.d("HttpPost:", url + "?" + output.toString());
+        HttpUtil.sendPostRequest_okHttp(url, output, new HttpCallback() {
+            @Override
+            public void onFinish(Bitmap bm) {
+
+            }
+
+            @Override
+            public void onFinish(InputStream in) {
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                    StringBuilder response = new StringBuilder();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        response.append(line);
+                        line = reader.readLine();
+                    }
+                    if (callback != null) {
+                        Log.d("Http", "read finish：" + response.toString());
+                        callback.onFinish(response.toString());
                     }
                 } catch (Exception e) {
                     callback.onError(e);

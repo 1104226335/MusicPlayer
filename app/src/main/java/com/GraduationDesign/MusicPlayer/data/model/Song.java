@@ -38,6 +38,7 @@ public class Song implements Parcelable {
 
     private boolean favorite;
 
+
     public Song() {
         // Empty
     }

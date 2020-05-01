@@ -12,6 +12,10 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.GraduationDesign.MusicPlayer.R;
+import com.GraduationDesign.MusicPlayer.Web.CommonApi;
+import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
+import com.GraduationDesign.MusicPlayer.Web.TextHelper;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyComment;
 import com.GraduationDesign.MusicPlayer.ui.main.MainActivity;
 
 import java.util.Timer;
@@ -26,7 +30,6 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         checkPermission();
-
     }
 
     private void startMainActivity(){

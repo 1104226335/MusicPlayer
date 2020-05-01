@@ -227,11 +227,16 @@ import rx.Subscriber;
                 File file;
                 for (Iterator<Song> iterator = allSongs.iterator(); iterator.hasNext(); ) {
                     Song song = iterator.next();
-                    file = new File(song.getPath());
-                    boolean exists = file.exists();
-                    if (!exists) {
+                    String source = song.getPath();
+                    if(source.contains("http")){
                         iterator.remove();
-                        mLiteOrm.delete(song);
+                    }else {
+                        file = new File(source);
+                        boolean exists = file.exists();
+                        if (!exists) {
+                            iterator.remove();
+                            mLiteOrm.delete(song);
+                        }
                     }
                 }
                 subscriber.onNext(allSongs);
@@ -239,7 +244,21 @@ import rx.Subscriber;
             }
         });
     }
-
+    @Override
+    public Observable<Song> insert(final Song song) {
+        return Observable.create(new Observable.OnSubscribe<Song>() {
+            @Override
+            public void call(Subscriber<? super Song> subscriber) {
+                long result = mLiteOrm.insert(song, ConflictAlgorithm.Abort);
+                if (result > 0) {
+                    subscriber.onNext(song);
+                } else {
+                    subscriber.onError(new Exception("Insert song failed"));
+                }
+                subscriber.onCompleted();
+            }
+        });
+    }
     @Override
     public Observable<Song> update(final Song song) {
         return Observable.create(new Observable.OnSubscribe<Song>() {

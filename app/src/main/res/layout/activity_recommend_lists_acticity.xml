@@ -9,27 +9,49 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/recommend_list_title"
-        xmlns:appBarLayout="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        appBarLayout:expanded="true"
-        appBarLayout:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@color/setting_background"
-        >
+        android:layout_height="260dp"
+        android:background="@color/setting_background">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/MP.Theme.TextAppearance.Toolbar.ExpandedTitle"
+           app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <ImageView
+                android:id="@+id/iv_recommend_list_pic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:layout_collapseMode="parallax"
+                android:src="@mipmap/bro1"/>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/recommend_toolbar"
-            xmlns:toolbar="http://schemas.android.com/apk/res-auto"
-            style="@style/MP.Theme.Widget.Toolbar"
-            toolbar:layout_scrollFlags="enterAlways"
-            />
+            <ImageView
+                android:id="@+id/iv_recommend_pic"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/bro1" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/recommend_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                style="@style/MP.Theme.TextAppearance.Toolbar"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="Title"
+                />
+        </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recommend_list_detail"
         xmlns:recyclerView="http://schemas.android.com/apk/res-auto"
         style="@style/MP.Theme.Widget.RecyclerView"
-        android:paddingTop="1dp"
+        android:paddingTop="10dp"
         android:clipToPadding="false"
         recyclerView:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/item_play_list_details_song"

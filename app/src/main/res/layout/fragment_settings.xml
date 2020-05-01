@@ -23,6 +23,7 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/user_head_72"/>
         <TextView
+            android:id="@+id/setting_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/userimage"
@@ -181,6 +182,31 @@
             android:textSize="@dimen/setting_text_size"
             android:textColor="@color/setting_font_color"
             android:text="帮助与反馈"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/little_point_right_25"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/setting_check_comment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_little_background"
+        android:background="@color/setting_primary"
+        android:layout_marginTop="@dimen/setting_space"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/setting_text_size"
+            android:textColor="@color/setting_font_color"
+            android:text="审查评论"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

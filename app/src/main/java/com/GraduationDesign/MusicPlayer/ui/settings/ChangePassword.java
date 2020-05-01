@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import com.GraduationDesign.MusicPlayer.R;
 
-public class change_password extends AppCompatActivity {
+public class ChangePassword extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

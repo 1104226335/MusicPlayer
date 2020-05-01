@@ -1,6 +1,8 @@
-package com.GraduationDesign.MusicPlayer.ui.login;
+package com.GraduationDesign.MusicPlayer.ui.settings.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,17 +12,13 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.Web.CommonApi;
 import com.GraduationDesign.MusicPlayer.Web.ErrorCode;
 import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
-import com.GraduationDesign.MusicPlayer.Web.URLCONST;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.LoginBean;
 import com.GraduationDesign.MusicPlayer.ui.main.MainActivity;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -76,8 +74,16 @@ public class RegisterActivity extends AppCompatActivity {
         CommonApi.RegisterToService(SName, SEmail, SPassword, new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
-                TextHelper.showLongText((String)o);
-                mHandler.sendMessage(mHandler.obtainMessage(code));
+                LoginBean loginBean = (LoginBean)o;
+                if(loginBean.getResult().get(0).getMessage().equals("success")){
+                    SharedPreferences.Editor editor = getSharedPreferences("LoginMsg",Context.MODE_PRIVATE).edit();
+                    editor.putString("UserName",loginBean.getResult().get(0).getUserName());
+                    editor.putString("UserID",loginBean.getResult().get(0).getUserID());
+                    editor.putString("UserEmail",loginBean.getResult().get(0).getUserEmail());
+                    editor.putInt("UserIdentity",loginBean.getResult().get(0).getUserIdentity());
+                    editor.apply();
+                }
+                mHandler.sendMessage(mHandler.obtainMessage(loginBean.error));
             }
 
             @Override

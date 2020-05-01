@@ -46,8 +46,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         Window window = getWindow();
         GradientDrawable gradientBackgroundDrawable = GradientUtils.create(
-                ContextCompat.getColor(this, R.color.mp_theme_dark_blue_gradientColor),
-                ContextCompat.getColor(this, R.color.mp_theme_dark_blue_background),
+                ContextCompat.getColor(this, R.color.white),
+                ContextCompat.getColor(this, R.color.setting_background),
                 screenHeight / 2, // (int) Math.hypot(screenWidth / 2, screenHeight / 2),
                 0.5f,
                 0.5f

@@ -9,6 +9,7 @@ public class ErrorCode {
     public static final int login_not_user = 102; // 用户不存在
     public static final int login_not_password = 101;// 密码错误
     public static final int login_success = 0;//登陆成功
+    public static final int sendComment_success = 0;
     public static final int regiter_user_exist = 101;//用户已存在
     public static final int regist_success = 0;//注册成功
     public static final int unknow_database_error = 102;//数据库错误

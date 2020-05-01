@@ -13,6 +13,7 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+
 import com.GraduationDesign.MusicPlayer.BuildConfig;
 
 /**

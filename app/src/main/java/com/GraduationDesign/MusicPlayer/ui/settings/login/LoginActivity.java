@@ -1,42 +1,33 @@
-package com.GraduationDesign.MusicPlayer.ui.login;
+package com.GraduationDesign.MusicPlayer.ui.settings.login;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.Web.CommonApi;
 import com.GraduationDesign.MusicPlayer.Web.ErrorCode;
 import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.LoginBean;
 import com.GraduationDesign.MusicPlayer.ui.main.MainActivity;
 
 
@@ -57,6 +48,7 @@ public class LoginActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         goto_register=(TextView) findViewById(R.id.goto_register);
@@ -139,14 +131,20 @@ public class LoginActivity extends AppCompatActivity  {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-//            mAuthTask = new UserLoginTask(email, password);
-//            mAuthTask.execute((Void) null);
 
             CommonApi.logintoservice(email, password, new ResultCallback() {
                 @Override
                 public void onFinish(Object o, int code) {
-                    TextHelper.showLongText((String) o);
-                     mHandler.sendMessage(mHandler.obtainMessage(code));
+                    LoginBean loginBean = (LoginBean)o;
+                    if(loginBean.getResult().get(0).getMessage().equals("success")){
+                        SharedPreferences.Editor editor = getSharedPreferences("LoginMsg",Context.MODE_PRIVATE).edit();
+                        editor.putString("UserName",loginBean.getResult().get(0).getUserName());
+                        editor.putString("UserID",loginBean.getResult().get(0).getUserID());
+                        editor.putString("UserEmail",loginBean.getResult().get(0).getUserEmail());
+                        editor.putInt("UserIdentity",loginBean.getResult().get(0).getUserIdentity());
+                        editor.apply();
+                    }
+                     mHandler.sendMessage(mHandler.obtainMessage(loginBean.error));
                 }
 
                 @Override
@@ -157,15 +155,14 @@ public class LoginActivity extends AppCompatActivity  {
         }
     }
 
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+        public boolean handleMessage(Message msg) {
             switch(msg.what){
                 case ErrorCode.login_not_password:
-                     showProgress(false);
-                     TextHelper.showLongText("密码错误赵百庆王八蛋");
-                     break;
+                    showProgress(false);
+                    TextHelper.showLongText("密码错误赵百庆王八蛋");
+                    break;
                 case ErrorCode.login_not_user:
                     showProgress(false);
                     TextHelper.showLongText("用户不存在赵百庆不存在");
@@ -176,8 +173,9 @@ public class LoginActivity extends AppCompatActivity  {
                     break;
 
             }
+            return false;
         }
-    };
+    });
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic

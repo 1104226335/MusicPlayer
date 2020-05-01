@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.search.SearchActivity">
+    <android.support.design.widget.AppBarLayout
+        xmlns:appBarLayout="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/appb_music_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        appBarLayout:expanded="true"
+        appBarLayout:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/setting_background"
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_music_search"
+            xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+            style="@style/MP.Theme.Widget.Toolbar"
+            toolbar:layout_scrollFlags="enterAlways"
+            />
+    </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:id="@+id/ll_comment_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/appb_music_search"
+        android:background="@color/setting_background">
+
+        <EditText
+            android:id="@+id/search_input_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="搜索关键词"
+            android:layout_marginLeft="9dp"
+            android:background="@drawable/textview_bg"
+            android:textColorHint="@color/whileGray"
+            android:maxLines="2" />
+
+        <Button
+            android:id="@+id/search_input_send"
+            android:layout_width="90dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="5sp"
+            android:background="@drawable/button_bg"
+            android:text="搜索" />
+    </LinearLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_comment_input">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_music_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="1dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_music_comment"
+            />
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

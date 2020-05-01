@@ -8,6 +8,11 @@ public class WyRecommend {
     public WyRecommend(){
 
     }
+    public WyRecommend(String coverUrl,String name,String id){
+        this.coverUrl = coverUrl;
+        this.name = name;
+        this.id = id;
+    }
     public String getCoverUrl() {
         return coverUrl;
     }

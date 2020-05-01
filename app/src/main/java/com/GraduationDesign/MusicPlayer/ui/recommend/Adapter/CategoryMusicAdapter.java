@@ -23,7 +23,7 @@ public class CategoryMusicAdapter extends RecyclerView.Adapter<CategoryMusicAdap
     private Context mContext;
     CategoryMusicListener itemClick;
     public interface CategoryMusicListener {
-        void clickItem(String listid,String name);
+        void clickItem(String listid,String name,String ListPic);
     }
 
     public void setOnCategoryMusicListener(CategoryMusicListener listener) {
@@ -54,10 +54,11 @@ public class CategoryMusicAdapter extends RecyclerView.Adapter<CategoryMusicAdap
                 .into(viewHolder.musicListCover);
         final String listId = musicListId.get(i);
         final String listname = musicListName.get(i);
+        final String listPic = imgUrl.get(i);
         viewHolder.musicListCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClick.clickItem(listId,listname);
+                itemClick.clickItem(listId,listname,listPic);
             }
         });
     }
