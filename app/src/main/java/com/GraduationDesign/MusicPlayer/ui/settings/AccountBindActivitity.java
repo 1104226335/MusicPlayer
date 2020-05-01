@@ -1,15 +1,18 @@
 package com.GraduationDesign.MusicPlayer.ui.settings;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.GraduationDesign.MusicPlayer.R;
 
 public class AccountBindActivitity extends AppCompatActivity {
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,8 @@ public class AccountBindActivitity extends AppCompatActivity {
                 goto_changePassword();
             }
         });
+        toolbar = findViewById(R.id.app_accout_bind_toolbar);
+        setToolbar();
     }
 
     private void gotochangeEmail(){
@@ -38,5 +43,26 @@ public class AccountBindActivitity extends AppCompatActivity {
     private void goto_changePassword(){
         Intent goto_changePassword=new Intent(this,change_password.class);
         startActivity(goto_changePassword);
+    }
+
+    public void setToolbar() {
+
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("账号和绑定");
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

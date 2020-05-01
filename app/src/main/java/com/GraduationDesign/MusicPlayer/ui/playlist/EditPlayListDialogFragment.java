@@ -11,8 +11,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.GraduationDesign.MusicPlayer.R;
+import com.GraduationDesign.MusicPlayer.Web.TextHelper;
 import com.GraduationDesign.MusicPlayer.data.model.PlayList;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseDialogFragment;
+
+import java.lang.reflect.Field;
+import java.text.MessageFormat;
 
 /**
  * Created with Android Studio.
@@ -65,7 +69,25 @@ public class EditPlayListDialogFragment extends BaseDialogFragment implements Di
                 .setPositiveButton(R.string.mp_Confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        onConfirm();
+                        if(editTextName.getText().length() == 0){
+                            TextHelper.showLongText("歌单名不能为空");
+                            try{
+                                Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing");
+                                field.setAccessible(true);
+                                field.set(dialog,false);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }else{
+                            try{
+                                Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing");
+                                field.setAccessible(true);
+                                field.set(dialog,true);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            onConfirm();
+                        }
                     }
                 })
                 .create();

@@ -10,7 +10,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="3dp"
         android:background="@color/setting_primary"
        />
     <!--android:background="?attr/selectableItemBackground"-->
@@ -30,8 +30,9 @@
         android:id="@+id/ll_recommend_song_play_net"
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
+        android:gravity="center_vertical"
         android:layout_toRightOf="@+id/image_view_album_net"
         android:layout_toEndOf="@+id/image_view_album_net"
         android:layout_toLeftOf="@+id/layout_action_net"
@@ -75,7 +76,7 @@
     </FrameLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="3dp"
         android:background="@color/setting_primary"
         android:layout_alignParentBottom="true"
         />

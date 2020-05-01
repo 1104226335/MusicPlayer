@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -23,12 +26,15 @@ import okhttp3.Response;
 
 public class AppAboutActivity extends AppCompatActivity {
     int VersionCode = 0;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_about);
         getAsyn("https://www.baiqing.work/apk/MusicUpdate.php");
         RelativeLayout relativeLayout = findViewById(R.id.app_check_update);
+        toolbar = findViewById(R.id.app_about_toolbar);
+        setToolbar();
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,6 +42,28 @@ public class AppAboutActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void setToolbar() {
+
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("关于");
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public  void checkUpdate() {
         Activity context = this;
         float versionCode = VersionCode;
