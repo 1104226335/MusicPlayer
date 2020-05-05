@@ -171,11 +171,12 @@ public class CommonApi extends BaseApi{
     /**
      * @param callback callback
      */
-    public static void sendMyFeedback(String UserEmail,String feedbacktime,String feedbackContent,final ResultCallback callback){
+    public static void sendMyFeedback(String UserEmail,String feedbackContent,final ResultCallback callback){
+        String date = TimeHelper.getStringDateForKey("yyyy-MM-dd HH:mm:ss");
         Map<String,Object> param = new HashMap<>();
         param.put("email",UserEmail);
         param.put("content",feedbackContent);
-        param.put("time",feedbacktime);
+        param.put("time",date);
         postCommonReturnStringApi(URLCONST.method_sendmyfeedback, param, new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
@@ -191,10 +192,11 @@ public class CommonApi extends BaseApi{
     /**
      * @param callback callback
      */
-    public static void checkMyFeedback(String type,int commentId,final ResultCallback callback){
+    public static void checkMyFeedback(String type,int code,String feedback,final ResultCallback callback){
         Map<String,Object> param = new HashMap<>();
         param.put("type",type);
-        param.put("code",commentId);
+        param.put("code",code);
+        param.put("feed",feedback);
         getEntityApi(URLCONST.method_checkmyfeedback, param,MyFeedbackBean.class,  new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {

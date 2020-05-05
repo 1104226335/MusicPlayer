@@ -1,4 +1,4 @@
-package com.GraduationDesign.MusicPlayer.ui.feedback;
+package com.GraduationDesign.MusicPlayer.ui.settings.feedback;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyFeedbackBean;
-import com.GraduationDesign.MusicPlayer.ui.settings.CheckCommentAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -21,9 +20,9 @@ import java.util.List;
 //
 public class HandleFeedbackAdapter extends RecyclerView.Adapter<HandleFeedbackAdapter.FeedbackViewHolder>{
     private Context fContext;
-    List<MyFeedbackBean.FResultBean> fFeedbackList;
+    List<MyFeedbackBean.ResultBean> fFeedbackList;
     HandleFeedbackAdapter.OnAction action;
-    public HandleFeedbackAdapter(Context context, List<MyFeedbackBean.FResultBean> feedbackList){
+    public HandleFeedbackAdapter(Context context, List<MyFeedbackBean.ResultBean> feedbackList){
         this.fContext = context;
         this.fFeedbackList = feedbackList;
     }
@@ -44,15 +43,22 @@ public class HandleFeedbackAdapter extends RecyclerView.Adapter<HandleFeedbackAd
                 .apply(RequestOptions.bitmapTransform(new CircleCrop())
                         .error(R.mipmap.bro1))
                 .into(holder.userPic);
-        holder.commentTime.setText(fFeedbackList.get(position).getfeedbackDate());
+        holder.commentTime.setText(fFeedbackList.get(position).getFeedbackDate());
         holder.userName.setText(fFeedbackList.get(position).getUserName());
         holder.commentContent.setText(fFeedbackList.get(position).getContent());
         holder.action.setVisibility(View.VISIBLE);
-        final int commentId = fFeedbackList.get(position).getfeedbackId();
+        if (fFeedbackList.get(position).getFeed()==null){
+            holder.hint.setVisibility(View.GONE);
+            holder.feed.setVisibility(View.GONE);
+        }else {
+            holder.feed.setText(fFeedbackList.get(position).getFeed());
+            holder.action.setVisibility(View.GONE);
+        }
+        final int feedbaclId = fFeedbackList.get(position).getFeedbackId();
         holder.action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                action.onAction(v,commentId,position);
+                action.onAction(v,feedbaclId,position);
             }
         });
     }
@@ -68,16 +74,18 @@ public class HandleFeedbackAdapter extends RecyclerView.Adapter<HandleFeedbackAd
 
     public class FeedbackViewHolder extends RecyclerView.ViewHolder{
         ImageView userPic;
-        TextView userName,commentTime,commentContent;
+        TextView userName,commentTime,commentContent,feed,hint;
         FrameLayout action;
 
         public FeedbackViewHolder(@NonNull View itemView) {
             super(itemView);
-            userPic = itemView.findViewById(R.id.img_comment_user_pic);
-            userName = itemView.findViewById(R.id.tv_comment_user_name);
-            commentTime = itemView.findViewById(R.id.tv_comment_time);
-            commentContent = itemView.findViewById(R.id.tv_comment_content);
-            action = itemView.findViewById(R.id.comment_layout_action);
+            userPic = itemView.findViewById(R.id.img_feedback_user_pic);
+            userName = itemView.findViewById(R.id.tv_feedback_user_name);
+            commentTime = itemView.findViewById(R.id.tv_feedback_time);
+            commentContent = itemView.findViewById(R.id.tv_feedback_content);
+            action = itemView.findViewById(R.id.feedback_layout_action);
+            feed = itemView.findViewById(R.id.tv_feedback_feed);
+            hint = itemView.findViewById(R.id.tv_feedback_hint);
         }
     }
 

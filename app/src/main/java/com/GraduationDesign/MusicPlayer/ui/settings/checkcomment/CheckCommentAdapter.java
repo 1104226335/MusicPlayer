@@ -1,4 +1,4 @@
-package com.GraduationDesign.MusicPlayer.ui.settings;
+package com.GraduationDesign.MusicPlayer.ui.settings.checkcomment;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyCommentBean;
-import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyComment;
-import com.GraduationDesign.MusicPlayer.utils.TimeHelper;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;

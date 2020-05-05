@@ -1,8 +1,7 @@
-package com.GraduationDesign.MusicPlayer.ui.settings;
+package com.GraduationDesign.MusicPlayer.ui.settings.checkcomment;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -15,18 +14,12 @@ import android.view.View;
 
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.Web.CommonApi;
-import com.GraduationDesign.MusicPlayer.Web.ErrorCode;
 import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyCommentBean;
-import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyComment;
-import com.GraduationDesign.MusicPlayer.data.model.PlayList;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseActivity;
-import com.GraduationDesign.MusicPlayer.ui.comment.MusicCommentAdapter;
-import com.GraduationDesign.MusicPlayer.ui.playlist.AddToPlayListDialogFragment;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -90,6 +83,7 @@ public class CheckCommentActivity extends BaseActivity implements CheckCommentAd
     public void onAction(View v, final int commentId, final int position) {
         PopupMenu actionMenu = new PopupMenu(this, v, Gravity.END | Gravity.BOTTOM);
         actionMenu.inflate(R.menu.check_action);
+        actionMenu.getMenu().findItem(R.id.menu_item_feedback).setVisible(false);
         actionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

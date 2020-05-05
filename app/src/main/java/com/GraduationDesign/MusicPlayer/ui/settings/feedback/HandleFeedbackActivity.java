@@ -1,5 +1,7 @@
-package com.GraduationDesign.MusicPlayer.ui.feedback;
+package com.GraduationDesign.MusicPlayer.ui.settings.feedback;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
@@ -17,31 +19,29 @@ import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.Web.CommonApi;
 import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
-import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyCommentBean;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyFeedbackBean;
-import com.GraduationDesign.MusicPlayer.ui.feedback.HandleFeedbackAdapter;
-import com.GraduationDesign.MusicPlayer.utils.TimeHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class HandleFeedbackActivity extends AppCompatActivity implements HandleFeedbackAdapter.OnAction{
+    @BindView(R.id.app_handle_feedback_setting_toolbar)
     android.support.v7.widget.Toolbar toolbar;
     @BindView(R.id.rv_handle_feedback)
     RecyclerView handle_feedback;
 
 
     HandleFeedbackAdapter adapter;
-    List<MyFeedbackBean.FResultBean> handlefeedbacks = new ArrayList<>();
+    List<MyFeedbackBean.ResultBean> handlefeedbacks = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handle_feedback);
-        toolbar = findViewById(R.id.app_handle_feedback_setting_toolbar);
+        ButterKnife.bind(this);
         setToolbar();
-
 
         handle_feedback.setLayoutManager(new LinearLayoutManager(this));
         adapter = new HandleFeedbackAdapter(this,handlefeedbacks);
@@ -92,35 +92,59 @@ public class HandleFeedbackActivity extends AppCompatActivity implements HandleF
         }
     });
     public void initData(){
-        CommonApi.checkMyFeedback("",0,new ResultCallback() {
-            @Override
-            public void onFinish(Object o, int code) {
-                MyFeedbackBean myFeedbackBean = (MyFeedbackBean)o;
-                handlefeedbacks.clear();
-//                handlefeedbacks.addAll();
-                mhandler.sendMessage(mhandler.obtainMessage(1));
-            }
+        SharedPreferences shared = getSharedPreferences("LoginMsg",Context.MODE_PRIVATE);
+        int userIdentity = shared.getInt("UserIdentity",0);
+        boolean islogin = shared.getBoolean("IsLogin",false);
 
-            @Override
-            public void onError(Exception e) {
+        if(islogin){
+            if(userIdentity == 1){
+                CommonApi.checkMyFeedback("check",0,"",new ResultCallback() {
+                    @Override
+                    public void onFinish(Object o, int code) {
+                        MyFeedbackBean myFeedbackBean = (MyFeedbackBean)o;
+                        handlefeedbacks.clear();
+                        handlefeedbacks.addAll(myFeedbackBean.getResult());
+                        mhandler.sendMessage(mhandler.obtainMessage(1));
+                    }
 
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+            }else {
+                String email = shared.getString("UserEmail","error");
+                CommonApi.checkMyFeedback("me",0,email,new ResultCallback() {
+                    @Override
+                    public void onFinish(Object o, int code) {
+                        MyFeedbackBean myFeedbackBean = (MyFeedbackBean)o;
+                        handlefeedbacks.clear();
+                        handlefeedbacks.addAll(myFeedbackBean.getResult());
+                        mhandler.sendMessage(mhandler.obtainMessage(1));
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
             }
-        });
+        }
+
     }
 
     @Override
-    public void onAction(View v, final int commentId, final int position) {
+    public void onAction(View v, final int feedbackId, final int position) {
         PopupMenu actionMenu = new PopupMenu(this, v, Gravity.END | Gravity.BOTTOM);
         actionMenu.inflate(R.menu.check_action);
+        actionMenu.getMenu().findItem(R.id.menu_item_pass).setVisible(false);
+        actionMenu.getMenu().findItem(R.id.menu_item_failed_pass).setVisible(false);
         actionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.menu_item_pass:
-                        commentOp("pass",commentId,position);
-                        break;
-                    case R.id.menu_item_failed_pass:
-                        commentOp("delete",commentId,position);
+                    case R.id.menu_item_feedback:
+                        feedback(feedbackId,position);
                         break;
                 }
                 return true;
@@ -128,14 +152,28 @@ public class HandleFeedbackActivity extends AppCompatActivity implements HandleF
         });
         actionMenu.show();
     }
-    public void commentOp(String type,int commentId, final int positon){
-        CommonApi.checkMyComment(type, commentId, new ResultCallback() {
+    public void feedback(final int feedbackId, final int positon){
+
+        feedbackDialogFragment.newInstance()
+                .setTitle("回复反馈")
+                .setCallback(new feedbackDialogFragment.Callback() {
+                    @Override
+                    public void onConfirm(String content) {
+                        sendConfirm(content,feedbackId,positon);
+                    }
+                })
+                .show(getSupportFragmentManager(), "sendFeedback");
+
+    }
+
+    public void sendConfirm(String content,int feedbackId, final int positon) {
+        CommonApi.checkMyFeedback("pass", feedbackId,content, new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
                 Log.e("MusicCheck","返回成功");
-                MyCommentBean myCommentBean = (MyCommentBean)o;
-                if(myCommentBean.getError()==0){
-                    TextHelper.showText("操作成功");
+                MyFeedbackBean myFeedbackBean = (MyFeedbackBean)o;
+                if(myFeedbackBean.getError()==0){
+                    TextHelper.showText("回复成功");
                     Log.e("MusicCheck","操作成功");
                 }
                 handlefeedbacks.remove(positon);
@@ -150,5 +188,4 @@ public class HandleFeedbackActivity extends AppCompatActivity implements HandleF
             }
         });
     }
-
 }

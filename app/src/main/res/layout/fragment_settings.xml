@@ -177,6 +177,7 @@
         android:layout_marginTop="@dimen/setting_space"
         >
         <TextView
+            android:id="@+id/tv_handle_feedback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"

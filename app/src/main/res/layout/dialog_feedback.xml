@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/mp.margin.xlarge"
+    android:paddingRight="@dimen/mp.margin.xlarge"
+    android:paddingBottom="@dimen/mp.margin.normal"
+    android:paddingTop="@dimen/mp.margin.large"
+    >
+
+
+    <EditText
+        android:id="@+id/feedback_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/setting_primary"
+        android:textColor="@color/setting_font_color"
+        android:gravity="top"
+        android:paddingTop="20sp"
+        android:maxLength="100"
+        android:imeOptions="actionDone"
+        android:hint="请输入反馈信息"
+        />
+
+</FrameLayout>

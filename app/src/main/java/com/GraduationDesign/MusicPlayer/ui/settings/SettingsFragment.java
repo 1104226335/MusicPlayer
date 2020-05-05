@@ -26,8 +26,9 @@ import okhttp3.Response;
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseFragment;
-import com.GraduationDesign.MusicPlayer.ui.feedback.HandleFeedbackActivity;
-import com.GraduationDesign.MusicPlayer.ui.feedback.SubmitFeedbackActivity;
+import com.GraduationDesign.MusicPlayer.ui.settings.checkcomment.CheckCommentActivity;
+import com.GraduationDesign.MusicPlayer.ui.settings.feedback.HandleFeedbackActivity;
+import com.GraduationDesign.MusicPlayer.ui.settings.feedback.SubmitFeedbackActivity;
 import com.GraduationDesign.MusicPlayer.ui.settings.login.LoginActivity;
 import com.GraduationDesign.MusicPlayer.utils.UpdateHelper;
 
@@ -58,6 +59,8 @@ public class SettingsFragment extends BaseFragment {
     RelativeLayout setting_submit_feedback;
     @BindView(R.id.handle_feedback)
     RelativeLayout setting_handle_feedback;
+    @BindView(R.id.tv_handle_feedback)
+    TextView userMessage;
     Unbinder unbinder;
 
 
@@ -152,19 +155,18 @@ public class SettingsFragment extends BaseFragment {
         tvUserName.setText(userName);
         if(userIdentity==0){
             app_check_comment.setVisibility(View.GONE);
-        }else app_check_comment.setVisibility(View.VISIBLE);
-
+            setting_submit_feedback.setVisibility(View.VISIBLE);
+            userMessage.setText("消息");
+        }else {
+            app_check_comment.setVisibility(View.VISIBLE);
+            setting_submit_feedback.setVisibility(View.GONE);
+            userMessage.setText("处理反馈");
+        }
         islogin = shared.getBoolean("IsLogin",false);
         if(islogin){
             logout.setVisibility(View.VISIBLE);
         }else logout.setVisibility(View.GONE);
-        if(userIdentity==0){
-            setting_submit_feedback.setVisibility(View.VISIBLE);
-            setting_handle_feedback.setVisibility(View.GONE);
-        }else {
-            setting_submit_feedback.setVisibility(View.GONE);
-            setting_handle_feedback.setVisibility(View.VISIBLE);
-        }
+
     }
     public  void checkUpdate() {
 //        Activity context = this;

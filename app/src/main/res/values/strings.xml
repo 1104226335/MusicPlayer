@@ -77,7 +77,8 @@
         <item quantity="one">%d folder selected</item>
         <item quantity="other">%d folders selected</item>
     </plurals>
-
+    <string name="feed_back_hint"  translatable="false">请描述您使用过程中遇到的问题，我们会很快解决~~~~</string>
+    <string name="feed_back_hint_text"  translatable="false">稍后我们将会通过邮件回复您</string>
     <!-- Menu -->
     <string name="mp.menu.add_to_play_list">Add to play list</string>
     <string name="mp.menu.create_play_list">Create play list</string>
@@ -86,17 +87,15 @@
     <string name="mp.menu.rename">Rename</string>
     <string name="mp.menu.delete">Delete</string>
     <string name="mp.menu.update">Update</string>
-    <string name="title_activity_login">login</string>
+    <string name="title_activity_login" translatable="false">login</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">邮箱地址不合法</string>
-    <string name="error_invalid_password">您的密码太短了</string>
-    <string name="error_incorrect_password">密码不正确</string>
-    <string name="error_field_required">必填</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="prompt_email" translatable="false">Email</string>
+    <string name="prompt_password" translatable="false">Password (optional)</string>
+    <string name="action_sign_in" translatable="false">Sign in or register</string>
+    <string name="action_sign_in_short" translatable="false">Sign in</string>
+    <string name="error_invalid_email" translatable="false">邮箱地址不合法</string>
+    <string name="error_invalid_password" translatable="false">您的密码太短了</string>
+    <string name="error_incorrect_password" translatable="false">密码不正确</string>
+    <string name="error_field_required" translatable="false">必填</string>
+    <string name="permission_rationale" translatable="false">"Contacts permissions are needed for providing email completions."</string>
 </resources>

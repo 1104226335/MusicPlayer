@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.feedback.HandleFeedbackActivity"
+    tools:context=".ui.settings.feedback.HandleFeedbackActivity"
     android:orientation="vertical"
     android:background="@color/setting_background">
     <android.support.design.widget.AppBarLayout
@@ -27,15 +27,14 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/"
-        android:layout_above="@id/">
+        android:layout_below="@id/app_handle_feedback_setting_title"
+        android:layout_above="@id/handle_feedback_setting_detail">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_handle_feedback"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="1dp"
             android:clipToPadding="false"
-            tools:listitem="@layout/"
             />
     </android.support.v4.widget.NestedScrollView>
 

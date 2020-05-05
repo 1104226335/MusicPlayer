@@ -5,6 +5,10 @@
         android:title="通过"
         />
     <item
+        android:id="@+id/menu_item_feedback"
+        android:title="反馈"
+        />
+    <item
         android:id="@+id/menu_item_failed_pass"
         android:title="删除"
         />
