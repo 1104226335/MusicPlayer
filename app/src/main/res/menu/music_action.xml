@@ -8,4 +8,8 @@
         android:id="@+id/menu_item_delete"
         android:title="@string/mp.menu.delete"
         />
+    <item
+        android:id="@+id/menu_item_update"
+        android:title="@string/mp.menu.update"
+        />
 </menu>

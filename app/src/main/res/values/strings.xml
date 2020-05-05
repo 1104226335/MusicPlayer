@@ -85,6 +85,7 @@
     <string name="mp.menu.play_now">Play now</string>
     <string name="mp.menu.rename">Rename</string>
     <string name="mp.menu.delete">Delete</string>
+    <string name="mp.menu.update">Update</string>
     <string name="title_activity_login">login</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

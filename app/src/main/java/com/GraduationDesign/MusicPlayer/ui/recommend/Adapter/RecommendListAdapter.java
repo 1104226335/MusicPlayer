@@ -50,6 +50,7 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         song.setTitle(categoryDetailss.get(positio).getTitle());
         song.setDisplayName(categoryDetailss.get(positio).getTitle());
         song.setArtist(categoryDetailss.get(positio).getAuthor());
+        song.setAlbum(categoryDetailss.get(positio).getPic());
         recommentList.addSong(song);
         holder.songAuthor.setText(categoryDetailss.get(positio).getAuthor());
         holder.songTitle.setText(categoryDetailss.get(positio).getTitle());

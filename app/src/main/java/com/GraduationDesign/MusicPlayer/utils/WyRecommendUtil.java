@@ -40,7 +40,7 @@ public class WyRecommendUtil {
             categoryDetail.setId(musicListId);
             categoryDetail.setImageUrl(musicListCover);
             categoryDetail.setListName(musicListName);
-            categoryDetail.setCategoryName("网易云推荐");
+            categoryDetail.setCategoryName("必听歌单");
             recommends.add(categoryDetail);
         }catch (IOException e){e.printStackTrace();}
         return recommends;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.settings.music_play_setting"
+    tools:context=".ui.settings.MusicPlaySetting"
     android:background="@color/setting_background">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_music_play_setting_title"
@@ -22,7 +22,6 @@
             toolbar:layout_scrollFlags="enterAlways"
             />
     </android.support.design.widget.AppBarLayout>
-
     <LinearLayout
         android:id="@+id/music_play_setting_detail"
         android:layout_width="wrap_content"

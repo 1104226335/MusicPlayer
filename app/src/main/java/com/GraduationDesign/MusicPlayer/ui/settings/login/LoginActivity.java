@@ -142,6 +142,7 @@ public class LoginActivity extends AppCompatActivity  {
                         editor.putString("UserID",loginBean.getResult().get(0).getUserID());
                         editor.putString("UserEmail",loginBean.getResult().get(0).getUserEmail());
                         editor.putInt("UserIdentity",loginBean.getResult().get(0).getUserIdentity());
+                        editor.putBoolean("IsLogin",true);
                         editor.apply();
                     }
                      mHandler.sendMessage(mHandler.obtainMessage(loginBean.error));
@@ -161,11 +162,11 @@ public class LoginActivity extends AppCompatActivity  {
             switch(msg.what){
                 case ErrorCode.login_not_password:
                     showProgress(false);
-                    TextHelper.showLongText("密码错误赵百庆王八蛋");
+                    TextHelper.showLongText("密码错误");
                     break;
                 case ErrorCode.login_not_user:
                     showProgress(false);
-                    TextHelper.showLongText("用户不存在赵百庆不存在");
+                    TextHelper.showLongText("用户不存在");
                     break;
                 case ErrorCode.login_success:
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));

@@ -85,4 +85,5 @@
     <string name="mp.menu.play_now">立即播放</string>
     <string name="mp.menu.rename">重命名</string>
     <string name="mp.menu.delete">删除</string>
+    <string name="mp.menu.update">上传</string>
 </resources>

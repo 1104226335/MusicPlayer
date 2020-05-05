@@ -43,38 +43,12 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/little_point_right_25"/>
     </RelativeLayout>
-                                            <!--relativeLayout之间用线隔开-->
+
     <RelativeLayout
-        android:id="@+id/goto_account_setting"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_little_background"
+        android:background="@color/setting_primary"
         android:layout_marginTop="10dp"
-        android:background="@color/setting_primary"
-        >
-        <!--android:background="@color/mp.list.background"-->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/setting_text_size"
-            android:textColor="@color/setting_font_color"
-            android:text="账号和绑定"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/little_point_right_25"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/setting_little_background"
-        android:background="@color/setting_primary"
-        android:layout_marginTop="@dimen/setting_space"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -120,29 +94,32 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/little_point_right_25"/>
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/upload_music_setting"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_little_background"
-        android:background="@color/setting_primary"
         android:layout_marginTop="@dimen/setting_space"
-        >
+        android:background="@color/setting_primary">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/setting_text_size"
+            android:text="上传音乐"
             android:textColor="@color/setting_font_color"
-            android:text="缓存地址"/>
+            android:textSize="@dimen/setting_text_size" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/little_point_right_25"/>
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/little_point_right_25" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -168,6 +145,7 @@
             android:layout_marginRight="7dp"/>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/submit_feedback"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_little_background"
         android:background="@color/setting_primary"
@@ -182,6 +160,31 @@
             android:textSize="@dimen/setting_text_size"
             android:textColor="@color/setting_font_color"
             android:text="帮助与反馈"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/little_point_right_25"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/handle_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_little_background"
+        android:background="@color/setting_primary"
+        android:layout_marginTop="@dimen/setting_space"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/setting_text_size"
+            android:textColor="@color/setting_font_color"
+            android:text="处理反馈"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -231,7 +234,7 @@
             android:layout_centerVertical="true"
             android:textSize="@dimen/setting_text_size"
             android:textColor="@color/setting_font_color"
-            android:text="关于"/>
+            android:text="检查更新"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -240,5 +243,25 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/little_point_right_25"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_little_background"
+        android:background="@color/setting_primary"
+        android:layout_marginTop="10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/setting_text_size"
+            android:textColor="@color/setting_font_color"
+            android:text="退出登陆"/>
     </RelativeLayout>
 </LinearLayout>

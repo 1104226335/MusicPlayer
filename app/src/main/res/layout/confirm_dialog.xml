@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="更新"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/top_sapce"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -36,7 +36,7 @@
         android:gravity="center"
         android:layout_marginTop="30dp"
         android:text="取消"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/bottom_sapce"
         app:layout_constraintEnd_toStartOf="@id/tv_dialog_confirm"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_sapce"
         app:layout_constraintStart_toEndOf="@id/tv_dialog_cancle"
         android:text="确定"
-        android:textSize="20sp"/>
+        android:textSize="15sp"/>
     <View
         android:id="@+id/bottom_sapce"
         android:layout_width="match_parent"

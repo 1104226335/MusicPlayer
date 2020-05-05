@@ -25,6 +25,9 @@ import com.GraduationDesign.MusicPlayer.ui.base.adapter.OnItemClickListener;
 import com.GraduationDesign.MusicPlayer.ui.common.DefaultDividerDecoration;
 import com.GraduationDesign.MusicPlayer.ui.playlist.AddToPlayListDialogFragment;
 import com.GraduationDesign.MusicPlayer.ui.widget.RecyclerViewFastScroller;
+import com.GraduationDesign.MusicPlayer.utils.BaseDialog;
+import com.GraduationDesign.MusicPlayer.utils.BaseDialogListener;
+
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -48,6 +51,7 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
     ProgressBar progressBar;
     @BindView(R.id.text_view_empty)
     View emptyView;
+    BaseDialog baseDialog;
 
     LocalMusicAdapter mAdapter;
     LocalMusicContract.Presenter mPresenter;
@@ -104,7 +108,6 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
         final Song song = mAdapter.getItem(position);
         PopupMenu actionMenu = new PopupMenu(getActivity(), actionView, Gravity.END | Gravity.BOTTOM);
         actionMenu.inflate(R.menu.music_action);
-        actionMenu.getMenu().findItem(R.id.menu_item_delete).setVisible(false);
         actionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -119,10 +122,9 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
                                 })
                                 .show(getActivity().getSupportFragmentManager().beginTransaction(), "AddToPlayList");
                         break;
-//                    case R.id.menu_item_delete:
-//                        mDeleteIndex = position;
-//                        mPresenter.delete(song, mPlayList);
-//                        break;
+                    case R.id.menu_item_update:
+                        update();
+                        break;
                 }
                 return true;
             }
@@ -130,6 +132,24 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
         actionMenu.show();
     }
 
+    public void update(){
+        baseDialog = BaseDialog.getInstance(getActivity())
+                .setContent("是否上传？")
+                .setSelectText("确认", "取消", new BaseDialogListener() {
+                    @Override
+                    public void onPositionText() {
+                        baseDialog.dismiss();
+                        // TODO: 2020/5/4  进行上传
+                    }
+
+                    @Override
+                    public void onNegativeText() {
+                        baseDialog.dismiss();
+                        // TODO: 2020/5/4  返回
+                    }
+                });
+        baseDialog.show();
+    }
     // MVP View
 
     @Override
