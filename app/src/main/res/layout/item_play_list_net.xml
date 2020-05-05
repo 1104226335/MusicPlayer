@@ -42,6 +42,7 @@
         <TextView
             style="@style/MP.Theme.TextAppearance.List.Title"
             android:id="@+id/text_view_name_net"
+            android:textSize="14sp"
             tools:text="Favorite"
             />
 
@@ -49,6 +50,7 @@
             style="@style/MP.Theme.TextAppearance.List.Hint"
             android:id="@+id/text_view_info_net"
             android:layout_marginTop="@dimen/mp.margin.small"
+            android:textSize="10sp"
             tools:text="100 songs"
             />
     </LinearLayout>

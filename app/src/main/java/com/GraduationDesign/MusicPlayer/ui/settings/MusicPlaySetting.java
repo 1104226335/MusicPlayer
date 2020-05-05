@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.GraduationDesign.MusicPlayer.R;
 
+
 public class MusicPlaySetting extends AppCompatActivity {
     Toolbar toolbar;
     @Override

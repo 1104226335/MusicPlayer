@@ -9,6 +9,7 @@ import com.GraduationDesign.MusicPlayer.Web.TextHelper;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyComment;
 import com.GraduationDesign.MusicPlayer.data.source.AppRepository;
 import com.GraduationDesign.MusicPlayer.ui.details.PlayListDetailsContract;
+import com.GraduationDesign.MusicPlayer.utils.TimeHelper;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class MusicCommentPresenter implements MusicCommentContract.Presenter{
                 Log.e("MusicComment","finish");
                 WyComment wyComment = (WyComment)o;
                 hotComments = wyComment.getHotComments();
+                hotComments.add(0,newcomment());
                 Log.e("MusicComment","调用");
                 Log.e("MusicComment",Integer.toString(hotComments.size()));
                 mView.setAdapter(hotComments);
@@ -61,5 +63,14 @@ public class MusicCommentPresenter implements MusicCommentContract.Presenter{
                 }
             });
         }
+    }
+    public WyComment.HotCommentsBean newcomment(){
+        WyComment.HotCommentsBean hotCommentsBean = new WyComment.HotCommentsBean();
+        hotCommentsBean.setContent("好听");
+        hotCommentsBean.setTime(TimeHelper.getCurrentMillis());
+        hotCommentsBean.setUser(new WyComment.UserBean());
+        hotCommentsBean.getUser().setNickname("用户一号");
+        hotCommentsBean.getUser().setAvatarUrl("https://c-ssl.duitang.com/uploads/item/201511/21/20151121171107_zMZcy.thumb.1000_0.jpeg");
+        return hotCommentsBean;
     }
 }

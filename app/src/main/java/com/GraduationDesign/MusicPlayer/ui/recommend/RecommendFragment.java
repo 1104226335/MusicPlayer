@@ -76,9 +76,9 @@ public class RecommendFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         butterKnife = ButterKnife.bind(this, view);
-        list.add("https://www.baiqing.work/love/img/1.jpg");
-        list.add("https://www.baiqing.work/love/img/2.jpg");
-        list.add("https://www.baiqing.work/love/img/3.jpg");
+        list.add("http://p1.music.126.net/CbzZ6Iv5Rq0uwf-LBxboog==/109951164961326571.jpg?imageView");
+        list.add("http://p1.music.126.net/d14C5k5RMmPdxBTJGxgA7A==/109951164962179056.jpg?imageView");
+        list.add("http://p1.music.126.net/bSpZApdtYshI4VKUnp81HA==/109951164961414245.jpg?imageView");
 
         musicLists.setLayoutManager(new LinearLayoutManager(getActivity()));
         setBanner();

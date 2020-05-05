@@ -71,7 +71,9 @@
         <activity android:name=".ui.recommend.RecommendListsActivity" />
         <activity android:name=".ui.comment.MusicCommentActivity" />
         <activity android:name=".ui.search.SearchActivity" />
-        <activity android:name=".ui.settings.CheckCommentActivity"></activity>
+        <activity android:name=".ui.settings.CheckCommentActivity" />
+        <activity android:name=".ui.feedback.SubmitFeedbackActivity" />
+        <activity android:name=".ui.feedback.HandleFeedbackActivity"></activity>
     </application>
 
 </manifest>

@@ -81,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                     editor.putString("UserID",loginBean.getResult().get(0).getUserID());
                     editor.putString("UserEmail",loginBean.getResult().get(0).getUserEmail());
                     editor.putInt("UserIdentity",loginBean.getResult().get(0).getUserIdentity());
+                    editor.putBoolean("IsLogin",true);
                     editor.apply();
                 }
                 mHandler.sendMessage(mHandler.obtainMessage(loginBean.error));

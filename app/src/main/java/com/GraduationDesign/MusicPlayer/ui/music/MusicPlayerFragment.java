@@ -68,8 +68,8 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
     TextView textViewDuration;
     @BindView(R.id.seek_bar)
     SeekBar seekBarProgress;
-    @BindView(R.id.img_music_comment)
-    ImageView imgMusicComment;
+    //@BindView(R.id.img_music_comment)
+    //ImageView imgMusicComment;
     @BindView(R.id.button_play_mode_toggle)
     ImageView buttonPlayModeToggle;
     @BindView(R.id.button_play_toggle)
@@ -212,12 +212,13 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
             mPresenter.setSongAsFavorite(currentSong, !currentSong.isFavorite());
         }
     }
-    @OnClick(R.id.img_music_comment)
+    @OnClick(R.id.image_view_album)
     public void onImageToMusicComment(View view){
         Intent intent = new Intent(getActivity(),MusicCommentActivity.class);
         intent.putExtra("MusicId",Integer.toString(mPlayer.getPlayingSong().getId()));
         startActivity(intent);
     }
+
 
     // RXBus Events
 

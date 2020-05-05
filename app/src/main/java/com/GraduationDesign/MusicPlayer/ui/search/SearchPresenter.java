@@ -45,7 +45,7 @@ public class SearchPresenter implements SearchContract.Presenter {
         }catch (Exception e){
             e.printStackTrace();
         }
-        search("河图");
+//        search("河图");
     }
     @Override
     public void search(String key) {

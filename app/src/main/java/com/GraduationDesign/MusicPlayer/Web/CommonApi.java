@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.LoginBean;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyCommentBean;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyFeedbackBean;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyComment;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommendListBean;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WySearchResult;
@@ -155,6 +156,46 @@ public class CommonApi extends BaseApi{
         param.put("type",type);
         param.put("code",commentId);
         getEntityApi(URLCONST.method_checkmycomment, param,MyCommentBean.class,  new ResultCallback() {
+            @Override
+            public void onFinish(Object o, int code) {
+                Log.d("Http", "checkMyComment：" + o);
+                callback.onFinish(o,code);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+    }
+    /**
+     * @param callback callback
+     */
+    public static void sendMyFeedback(String UserEmail,String feedbacktime,String feedbackContent,final ResultCallback callback){
+        Map<String,Object> param = new HashMap<>();
+        param.put("email",UserEmail);
+        param.put("content",feedbackContent);
+        param.put("time",feedbacktime);
+        postCommonReturnStringApi(URLCONST.method_sendmyfeedback, param, new ResultCallback() {
+            @Override
+            public void onFinish(Object o, int code) {
+                callback.onFinish((String)o,code);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                callback.onError(e);
+            }
+        });
+    }
+    /**
+     * @param callback callback
+     */
+    public static void checkMyFeedback(String type,int commentId,final ResultCallback callback){
+        Map<String,Object> param = new HashMap<>();
+        param.put("type",type);
+        param.put("code",commentId);
+        getEntityApi(URLCONST.method_checkmyfeedback, param,MyFeedbackBean.class,  new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
                 Log.d("Http", "checkMyComment：" + o);
