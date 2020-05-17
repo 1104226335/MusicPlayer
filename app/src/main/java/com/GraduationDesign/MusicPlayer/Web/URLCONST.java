@@ -14,6 +14,10 @@ public class URLCONST {
         public static String method_sendmyfeedback = nameSpace_system+"/php/checkFeedback.php";
         public static String method_checkmyfeedback = nameSpace_system+"/php/getFeedback.php";
 
+        public static String method_getCurAppVersion = nameSpace_system+"/apk/MusicUpdate.php";
+
+        public static String method_upLoadMusic = nameSpace_system+"/php/GetMusicFromAndroid.php";
+        public static String method_checkLoadMusic = nameSpace_system+"/php/checkUpdateMusic.php";
 
         public static String Wy_List_Api = "https://api88.net/api/netease/";
         public static String Wy_comment_Api = "http://music.163.com/api/v1/resource/comments/R_SO_4_";

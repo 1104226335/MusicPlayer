@@ -73,7 +73,8 @@
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.settings.checkcomment.CheckCommentActivity" />
         <activity android:name=".ui.settings.feedback.SubmitFeedbackActivity" />
-        <activity android:name=".ui.settings.feedback.HandleFeedbackActivity"></activity>
+        <activity android:name=".ui.settings.feedback.HandleFeedbackActivity" />
+        <activity android:name=".ui.settings.checkUpload.HandleUploadActivity"></activity>
     </application>
 
 </manifest>

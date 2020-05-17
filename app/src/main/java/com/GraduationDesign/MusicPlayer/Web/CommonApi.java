@@ -2,15 +2,18 @@ package com.GraduationDesign.MusicPlayer.Web;
 
 import android.util.Log;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.LoginBean;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyCommentBean;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyFeedbackBean;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyMusicBean;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyComment;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommendListBean;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WySearchResult;
+import com.GraduationDesign.MusicPlayer.data.model.Song;
 import com.GraduationDesign.MusicPlayer.utils.StringHelper;
 import com.GraduationDesign.MusicPlayer.utils.TimeHelper;
 
@@ -198,6 +201,51 @@ public class CommonApi extends BaseApi{
         param.put("code",code);
         param.put("feed",feedback);
         getEntityApi(URLCONST.method_checkmyfeedback, param,MyFeedbackBean.class,  new ResultCallback() {
+            @Override
+            public void onFinish(Object o, int code) {
+                Log.d("Http", "checkMyComment：" + o);
+                callback.onFinish(o,code);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+    }
+    /**
+     * @param callback callback
+     */
+    public static void UploadFile(Song file, String userEmail, final ResultCallback callback){
+        Map<String,Object> param = new HashMap<>();
+        param.put("userEmail",userEmail);
+        param.put("Title",file.getTitle());
+        param.put("Album",file.getAlbum());
+        param.put("Artist",file.getArtist());
+        param.put("DisplayName",file.getDisplayName());
+        param.put("Size",file.getSize());
+        param.put("Duration",file.getDuration());
+        postUploadApi(URLCONST.method_upLoadMusic,new File(file.getPath()), param,JsonModel.class,  new ResultCallback() {
+            @Override
+            public void onFinish(Object o, int code) {
+                Log.d("Http", "uploadFile：" + o);
+                callback.onFinish(o,code);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+    }
+    /**
+     * @param callback callback
+     */
+    public static void checkMyUpload(String type,int musicId,final ResultCallback callback){
+        Map<String,Object> param = new HashMap<>();
+        param.put("type",type);
+        param.put("code",musicId);
+        getEntityApi(URLCONST.method_checkLoadMusic, param,MyMusicBean.class,  new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
                 Log.d("Http", "checkMyComment：" + o);

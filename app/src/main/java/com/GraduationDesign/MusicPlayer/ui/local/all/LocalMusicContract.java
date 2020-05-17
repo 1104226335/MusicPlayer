@@ -34,6 +34,8 @@ import java.util.List;
         void handleError(Throwable error);
 
         void onLocalMusicLoaded(List<Song> songs);
+
+        String getEmail();
     }
 
     interface Presenter extends BasePresenter {
@@ -41,5 +43,7 @@ import java.util.List;
         void loadLocalMusic();
 
         void addSongToPlayList(Song song, PlayList playList);
+
+        void uploadMusicBySong(Song file);
     }
 }

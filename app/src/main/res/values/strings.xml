@@ -77,8 +77,8 @@
         <item quantity="one">%d folder selected</item>
         <item quantity="other">%d folders selected</item>
     </plurals>
-    <string name="feed_back_hint"  translatable="false">请描述您使用过程中遇到的问题，我们会很快解决~~~~</string>
-    <string name="feed_back_hint_text"  translatable="false">稍后我们将会通过邮件回复您</string>
+    <string name="feed_back_hint" translatable="false">请描述您使用过程中遇到的问题，我们会很快解决~~~~</string>
+    <string name="feed_back_hint_text" translatable="false">稍后我们将会通过邮件回复您</string>
     <!-- Menu -->
     <string name="mp.menu.add_to_play_list">Add to play list</string>
     <string name="mp.menu.create_play_list">Create play list</string>

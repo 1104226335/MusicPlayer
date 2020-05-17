@@ -1,5 +1,7 @@
 package com.GraduationDesign.MusicPlayer.ui.local.all;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.PopupMenu;
@@ -123,7 +125,7 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
                                 .show(getActivity().getSupportFragmentManager().beginTransaction(), "AddToPlayList");
                         break;
                     case R.id.menu_item_update:
-                        update();
+                        update(song);
                         break;
                 }
                 return true;
@@ -132,14 +134,21 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
         actionMenu.show();
     }
 
-    public void update(){
+    @Override
+    public String getEmail() {
+        SharedPreferences shared = getActivity().getSharedPreferences("LoginMsg",Context.MODE_PRIVATE);
+
+        return shared.getString("UserEmail","error");
+    }
+
+    public void update(final Song file){
         baseDialog = BaseDialog.getInstance(getActivity())
                 .setContent("是否上传？")
                 .setSelectText("确认", "取消", new BaseDialogListener() {
                     @Override
                     public void onPositionText() {
                         baseDialog.dismiss();
-                        // TODO: 2020/5/4  进行上传
+                        mPresenter.uploadMusicBySong(file);
                     }
 
                     @Override

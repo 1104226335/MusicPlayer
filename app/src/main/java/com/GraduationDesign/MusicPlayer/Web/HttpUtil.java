@@ -317,22 +317,20 @@ public class HttpUtil {
     /**
      * 多文件上传请求
      * @param url
-     * @param files
+     * @param file
      * @param params
      * @param callback
      */
-    public static void uploadFile(String url, ArrayList<File> files, Map<String, Object> params, final HttpCallback callback){
+    public static void uploadFile(String url, File file, Map<String, Object> params, final HttpCallback callback){
         OkHttpClient client = new OkHttpClient();
         // form 表单形式上传
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        for(File file : files){
-            if(file != null){
-                // MediaType.parse() 里面是上传的文件类型。
-                RequestBody body = RequestBody.create(MediaType.parse("*/*"), file);
-                String filename = file.getName();
-                // 参数分别为， 请求key ，文件名称 ， RequestBody
-                requestBody.addFormDataPart(file.getName(), file.getName(), body);
-            }
+        if(file != null){
+            // MediaType.parse() 里面是上传的文件类型。
+            RequestBody body = RequestBody.create(MediaType.parse("*/*"), file);
+            String filename = file.getName();
+            // 参数分别为， 请求key ，文件名称 ， RequestBody
+            requestBody.addFormDataPart("file", file.getName(), body);
         }
 
         if (params != null) {
@@ -357,10 +355,7 @@ public class HttpUtil {
                     callback.onFinish(str);
                     Log.i("Http", response.message() + " , body " + str);
                 } else {
-                    JsonModel jsonModel = new JsonModel();
-                    jsonModel.setSuccess(false);
-//                    jsonModel.setResult(response.body().string());
-                    callback.onFinish(new Gson().toJson(jsonModel));
+                    callback.onFinish("err");
                     Log.i("Http" ,response.message() + " error : body " + response.body().string());
                 }
             }
