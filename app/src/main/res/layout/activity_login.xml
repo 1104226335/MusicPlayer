@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="25dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/login_register_pic"/>
         <!--android:layout_marginTop="50dp"-->
         <!--android:src="@mipmap/music_solid_240"-->
 

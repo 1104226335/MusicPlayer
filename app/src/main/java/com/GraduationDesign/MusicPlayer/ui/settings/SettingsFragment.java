@@ -153,11 +153,11 @@ public class SettingsFragment extends BaseFragment {
         super.onResume();
         userName = shared.getString("UserName","登录");
         tvUserName.setText(userName);
-        if(userIdentity==0){
-            app_check_comment.setVisibility(View.GONE);
-            setting_submit_feedback.setVisibility(View.VISIBLE);
-            userMessage.setText("消息");
-        }else {
+        if(userIdentity==0){//用户
+            app_check_comment.setVisibility(View.GONE);//审查评论不可见
+            setting_submit_feedback.setVisibility(View.VISIBLE);//提交反馈可见
+            userMessage.setText("消息通知");
+        }else {//管理员
             app_check_comment.setVisibility(View.VISIBLE);
             setting_submit_feedback.setVisibility(View.GONE);
             userMessage.setText("处理反馈");

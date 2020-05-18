@@ -39,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="闪退"/>
+            android:text="闪  退"/>
         <CheckBox
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
         >
         <EditText
             android:id="@+id/edit_submit_feedback"
-            android:layout_width="290dp"
+            android:layout_width="330dp"
             android:layout_height="200dp"
             android:layout_marginTop="25dp"
             android:background="@color/setting_primary"
