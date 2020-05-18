@@ -25,7 +25,10 @@ import okhttp3.Response;
 
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
+import com.GraduationDesign.MusicPlayer.Web.URLCONST;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseFragment;
+import com.GraduationDesign.MusicPlayer.ui.settings.checkUpload.HandleUploadActivity;
+import com.GraduationDesign.MusicPlayer.ui.settings.checkUpload.HandleUploadAdapter;
 import com.GraduationDesign.MusicPlayer.ui.settings.checkcomment.CheckCommentActivity;
 import com.GraduationDesign.MusicPlayer.ui.settings.feedback.HandleFeedbackActivity;
 import com.GraduationDesign.MusicPlayer.ui.settings.feedback.SubmitFeedbackActivity;
@@ -59,6 +62,8 @@ public class SettingsFragment extends BaseFragment {
     RelativeLayout setting_submit_feedback;
     @BindView(R.id.handle_feedback)
     RelativeLayout setting_handle_feedback;
+    @BindView(R.id.upload_music_setting)
+    RelativeLayout checkUpload;
     @BindView(R.id.tv_handle_feedback)
     TextView userMessage;
     Unbinder unbinder;
@@ -111,6 +116,7 @@ public class SettingsFragment extends BaseFragment {
     }
     @OnClick(R.id.setting_app_about)
     public void about(){
+        getAsyn(URLCONST.method_getCurAppVersion);
         checkUpdate();
     }
 
@@ -148,17 +154,25 @@ public class SettingsFragment extends BaseFragment {
         Intent intent = new Intent(getActivity(),CheckCommentActivity.class);
         startActivity(intent);
     }
+    @OnClick(R.id.upload_music_setting)
+    public void checkMusic(){
+        Intent intent = new Intent(getActivity(),HandleUploadActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onResume() {
         super.onResume();
         userName = shared.getString("UserName","登录");
+        userIdentity = shared.getInt("UserIdentity",0);
         tvUserName.setText(userName);
-        if(userIdentity==0){//用户
-            app_check_comment.setVisibility(View.GONE);//审查评论不可见
-            setting_submit_feedback.setVisibility(View.VISIBLE);//提交反馈可见
+        if(userIdentity==0){
+            app_check_comment.setVisibility(View.GONE);
+            setting_submit_feedback.setVisibility(View.VISIBLE);
+            checkUpload.setVisibility(View.GONE);
             userMessage.setText("消息通知");
-        }else {//管理员
+        }else {
             app_check_comment.setVisibility(View.VISIBLE);
+            checkUpload.setVisibility(View.VISIBLE);
             setting_submit_feedback.setVisibility(View.GONE);
             userMessage.setText("处理反馈");
         }

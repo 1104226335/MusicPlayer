@@ -1,5 +1,8 @@
 package com.GraduationDesign.MusicPlayer.ui.local.all;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +13,11 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 
 import com.GraduationDesign.MusicPlayer.RxBus;
+import com.GraduationDesign.MusicPlayer.Web.CommonApi;
+import com.GraduationDesign.MusicPlayer.Web.JsonModel;
+import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
+import com.GraduationDesign.MusicPlayer.Web.TextHelper;
+import com.GraduationDesign.MusicPlayer.Web.UIProgressRequestListener;
 import com.GraduationDesign.MusicPlayer.data.model.PlayList;
 import com.GraduationDesign.MusicPlayer.data.model.Song;
 import com.GraduationDesign.MusicPlayer.data.source.AppRepository;
@@ -81,6 +89,29 @@ public class LocalMusicPresenter implements LocalMusicContract.Presenter, Loader
         mView = null;
         mSubscriptions.clear();
     }
+
+    @Override
+    public void uploadMusicBySong(Song file) {
+
+        CommonApi.UploadFile(file, mView.getEmail(), new ResultCallback() {
+            @Override
+            public void onFinish(Object o, int code) {
+                JsonModel jsonModel = (JsonModel) o;
+                TextHelper.showLongText(jsonModel.getResult());
+            }
+
+            @Override
+            public void onError(Exception e) {
+                TextHelper.showLongText(e.toString());
+            }
+        },new UIProgressRequestListener() {
+            @Override
+            public void onUIRequestProgress(long bytesWrite, long contentLength, boolean done) {
+                mView.onUIRequestProgress(bytesWrite,contentLength,done);
+            }
+        });
+    }
+
 
     @Override
     public void loadLocalMusic() {

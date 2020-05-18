@@ -200,7 +200,7 @@
     <!-- 背景颜色及透明程度 -->
 
 
-    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowBackground">@color/white</item>
 
     <!-- 是否半透明 -->
 
@@ -210,7 +210,7 @@
     <!-- 是否没有标题 -->
 
 
-    <!--<item name="android:windowNoTitle">true</item>-->
+    <item name="android:windowNoTitle">true</item>
 
 
     <!-- 是否浮现在activity之上 -->

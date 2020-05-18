@@ -44,56 +44,6 @@
             android:src="@mipmap/little_point_right_25"/>
     </RelativeLayout>
 
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/setting_little_background"-->
-        <!--android:background="@color/setting_primary"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--&gt;-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="30dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:textSize="@dimen/setting_text_size"-->
-            <!--android:textColor="@color/setting_font_color"-->
-            <!--android:text="消息通知"/>-->
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:src="@mipmap/little_point_right_2                                      5"/>-->
-    <!--</RelativeLayout>-->
-    <RelativeLayout
-        android:id="@+id/handle_feedback"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/setting_little_background"
-        android:background="@color/setting_primary"
-        android:layout_marginTop="10dp"
-        >
-        <TextView
-            android:id="@+id/tv_handle_feedback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/setting_text_size"
-            android:textColor="@color/setting_font_color"
-            android:text="处理反馈"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/little_point_right_25"/>
-    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/music_play_setting"
         android:layout_width="match_parent"
@@ -121,40 +71,15 @@
             android:src="@mipmap/little_point_right_25"/>
     </RelativeLayout>
 
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/upload_music_setting"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/setting_little_background"-->
-        <!--android:layout_marginTop="@dimen/setting_space"-->
-        <!--android:background="@color/setting_primary">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="30dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:text="上传音乐"-->
-            <!--android:textColor="@color/setting_font_color"-->
-            <!--android:textSize="@dimen/setting_text_size" />-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:src="@mipmap/little_point_right_25" />-->
-    <!--</RelativeLayout>-->
     <RelativeLayout
+        android:id="@+id/handle_feedback"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_little_background"
         android:background="@color/setting_primary"
-
         android:layout_marginTop="@dimen/setting_space"
         >
         <TextView
+            android:id="@+id/tv_handle_feedback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -162,14 +87,17 @@
             android:layout_centerVertical="true"
             android:textSize="@dimen/setting_text_size"
             android:textColor="@color/setting_font_color"
-            android:text="定时关闭"/>
-        <Switch
+            android:text="处理反馈"/>
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="7dp"/>
+            android:layout_centerVertical="true"
+            android:src="@mipmap/little_point_right_25"/>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/submit_feedback"
         android:layout_width="match_parent"
@@ -194,6 +122,32 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/little_point_right_25"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/upload_music_setting"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_little_background"
+        android:layout_marginTop="@dimen/setting_space"
+        android:background="@color/setting_primary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="审核音乐"
+            android:textColor="@color/setting_font_color"
+            android:textSize="@dimen/setting_text_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/little_point_right_25" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -220,6 +174,29 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/little_point_right_25"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_little_background"
+        android:background="@color/setting_primary"
+
+        android:layout_marginTop="@dimen/setting_space"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/setting_text_size"
+            android:textColor="@color/setting_font_color"
+            android:text="定时关闭"/>
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="7dp"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/setting_app_about"

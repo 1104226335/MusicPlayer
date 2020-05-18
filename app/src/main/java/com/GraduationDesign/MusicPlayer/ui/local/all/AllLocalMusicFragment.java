@@ -1,5 +1,8 @@
 package com.GraduationDesign.MusicPlayer.ui.local.all;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.PopupMenu;
@@ -15,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.GraduationDesign.MusicPlayer.R;
 import com.GraduationDesign.MusicPlayer.RxBus;
+import com.GraduationDesign.MusicPlayer.Web.UIProgressRequestListener;
 import com.GraduationDesign.MusicPlayer.data.model.PlayList;
 import com.GraduationDesign.MusicPlayer.data.model.Song;
 import com.GraduationDesign.MusicPlayer.data.source.AppRepository;
@@ -52,7 +56,7 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
     @BindView(R.id.text_view_empty)
     View emptyView;
     BaseDialog baseDialog;
-
+    private ProgressDialog progressDialog;
     LocalMusicAdapter mAdapter;
     LocalMusicContract.Presenter mPresenter;
 
@@ -123,7 +127,7 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
                                 .show(getActivity().getSupportFragmentManager().beginTransaction(), "AddToPlayList");
                         break;
                     case R.id.menu_item_update:
-                        update();
+                        update(song);
                         break;
                 }
                 return true;
@@ -132,14 +136,23 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
         actionMenu.show();
     }
 
-    public void update(){
+
+    @Override
+    public String getEmail() {
+        SharedPreferences shared = getActivity().getSharedPreferences("LoginMsg",Context.MODE_PRIVATE);
+
+        return shared.getString("UserEmail","error");
+    }
+
+    public void update(final Song file){
         baseDialog = BaseDialog.getInstance(getActivity())
                 .setContent("是否上传？")
                 .setSelectText("确认", "取消", new BaseDialogListener() {
                     @Override
                     public void onPositionText() {
                         baseDialog.dismiss();
-                        // TODO: 2020/5/4  进行上传
+                        createProgress();
+                        mPresenter.uploadMusicBySong(file);
                     }
 
                     @Override
@@ -149,6 +162,22 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
                     }
                 });
         baseDialog.show();
+    }
+    @Override
+    public void onUIRequestProgress(long bytesWrite, long contentLength, boolean done) {
+        progressDialog.setProgress((int) ((100 * bytesWrite) / contentLength));
+        if(done)progressDialog.dismiss();
+    }
+    /**
+     * 强制更新时显示在屏幕的进度条
+     */
+    private void createProgress() {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMax(100);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("正在上传...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.show();
     }
     // MVP View
 

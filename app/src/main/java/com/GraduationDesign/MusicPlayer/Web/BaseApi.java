@@ -5,6 +5,7 @@ import android.util.Log;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyRecommendListBean;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.Map;
 
 /**
@@ -110,6 +111,21 @@ public class BaseApi {
                 callback.onError(e);
             }
         });
+    }
+    protected static void postUploadApi(String url, File file, Map<String, Object> params, final Class c, final ResultCallback callback,final UIProgressRequestListener uiProgressRequestListener) {
+        HttpDataSource.uploadFile_okhttp(url, file, params, new APICallBack() {
+            @Override
+            public void onFinish(String response) {
+                int code = 0;
+                if(!response.equals("err"))code = 1;
+                callback.onFinish(new Gson().fromJson(response, c),code);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        },uiProgressRequestListener);
     }
 
 

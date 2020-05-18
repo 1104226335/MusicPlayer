@@ -375,24 +375,21 @@ public class HttpDataSource {
 
 
     /**
-     * 多文件上传（okhttp）
+     * 单文件上传（okhttp）
      * @param url
      * @param files
      * @param params
      * @param callback
      */
-    public static void uploadFile_okhttp(String url, ArrayList<File> files, Map<String, Object> params, final JsonCallback callback) {
+    public static void uploadFile_okhttp(String url, File files, Map<String, Object> params, final APICallBack callback,final UIProgressRequestListener uiProgressRequestListener) {
         HttpUtil.uploadFile(url, files, params, new HttpCallback() {
             @Override
             public void onFinish(String response) {
                 try {
                     if (callback != null) {
                         Log.d("Http", "read finish：" + response);
-                        // setResponse(response.toString());
-                        JsonModel jsonModel = new Gson().fromJson(response.toString(), JsonModel.class);
+                        callback.onFinish(response);
 
-                        callback.onFinish(jsonModel);
-                        Log.d("Http", "RSA finish：" + new Gson().toJson(jsonModel));
                     }
 
                 } catch (Exception e) {
@@ -416,7 +413,7 @@ public class HttpDataSource {
             public void onError(Exception e) {
 
             }
-        });
+        },uiProgressRequestListener);
     }
 
     /**
