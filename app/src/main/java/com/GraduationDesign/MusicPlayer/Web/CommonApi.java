@@ -216,7 +216,7 @@ public class CommonApi extends BaseApi{
     /**
      * @param callback callback
      */
-    public static void UploadFile(Song file, String userEmail, final ResultCallback callback){
+    public static void UploadFile(Song file, String userEmail, final ResultCallback callback,final UIProgressRequestListener uiProgressRequestListener){
         Map<String,Object> param = new HashMap<>();
         param.put("userEmail",userEmail);
         param.put("Title",file.getTitle());
@@ -236,7 +236,7 @@ public class CommonApi extends BaseApi{
             public void onError(Exception e) {
 
             }
-        });
+        },uiProgressRequestListener);
     }
     /**
      * @param callback callback

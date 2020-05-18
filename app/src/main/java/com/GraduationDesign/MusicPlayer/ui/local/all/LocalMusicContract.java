@@ -36,6 +36,8 @@ import java.util.List;
         void onLocalMusicLoaded(List<Song> songs);
 
         String getEmail();
+
+        void onUIRequestProgress(long bytesWrite, long contentLength, boolean done);
     }
 
     interface Presenter extends BasePresenter {

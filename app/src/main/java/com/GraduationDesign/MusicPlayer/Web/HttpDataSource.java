@@ -381,7 +381,7 @@ public class HttpDataSource {
      * @param params
      * @param callback
      */
-    public static void uploadFile_okhttp(String url, File files, Map<String, Object> params, final APICallBack callback) {
+    public static void uploadFile_okhttp(String url, File files, Map<String, Object> params, final APICallBack callback,final UIProgressRequestListener uiProgressRequestListener) {
         HttpUtil.uploadFile(url, files, params, new HttpCallback() {
             @Override
             public void onFinish(String response) {
@@ -413,7 +413,7 @@ public class HttpDataSource {
             public void onError(Exception e) {
 
             }
-        });
+        },uiProgressRequestListener);
     }
 
     /**

@@ -321,7 +321,7 @@ public class HttpUtil {
      * @param params
      * @param callback
      */
-    public static void uploadFile(String url, File file, Map<String, Object> params, final HttpCallback callback){
+    public static void uploadFile(String url, File file, Map<String, Object> params, final HttpCallback callback,final UIProgressRequestListener uiProgressRequestListener){
         OkHttpClient client = new OkHttpClient();
         // form 表单形式上传
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
@@ -339,7 +339,10 @@ public class HttpUtil {
                 requestBody.addFormDataPart(valueOf(entry.getKey()), valueOf(entry.getValue()));
             }
         }
-        Request request = new Request.Builder().url(url).post(requestBody.build()).tag(MusicPlayerApplication.getInstance()).build();
+
+        Request request = new Request.Builder().url(url).post(ProgressHelper.addProgressRequestListener(requestBody.build(), uiProgressRequestListener)).tag(MusicPlayerApplication.getInstance()).build();
+//                      new Request.Builder().url(" ").post(ProgressHelper.addProgressRequestListener(requestBody, uiProgressRequestListener)).build();
+//        requestBody.build()
         // readTimeout("请求超时时间" , 时间单位);
         client.newBuilder().readTimeout(5000, TimeUnit.MILLISECONDS).build().newCall(request).enqueue(new Callback() {
             @Override

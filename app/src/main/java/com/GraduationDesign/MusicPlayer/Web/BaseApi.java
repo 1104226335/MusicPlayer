@@ -112,7 +112,7 @@ public class BaseApi {
             }
         });
     }
-    protected static void postUploadApi(String url, File file, Map<String, Object> params, final Class c, final ResultCallback callback) {
+    protected static void postUploadApi(String url, File file, Map<String, Object> params, final Class c, final ResultCallback callback,final UIProgressRequestListener uiProgressRequestListener) {
         HttpDataSource.uploadFile_okhttp(url, file, params, new APICallBack() {
             @Override
             public void onFinish(String response) {
@@ -125,7 +125,7 @@ public class BaseApi {
             public void onError(Exception e) {
 
             }
-        });
+        },uiProgressRequestListener);
     }
 
 

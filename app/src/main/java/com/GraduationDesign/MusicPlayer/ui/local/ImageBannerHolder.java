@@ -33,9 +33,9 @@ public class ImageBannerHolder implements HolderCreator {
         ImageView iv = new ImageView(context);
         iv.setScaleType(ImageView.ScaleType.FIT_XY);
         Glide.with(iv).load(o).into(iv);
-        recommends.add(new WyRecommend("https://p1.music.126.net/hPZNJQ9yekQZ5jLLmaX7bA==/109951164957259611.jpg","五月继续加油，愿所有的结果都不辜负努力","4939476056"));
-        recommends.add(new WyRecommend("https://p2.music.126.net/9EjOKf8oNlgV5Cg43m73kQ==/109951164951601918.jpg","[周末假期运势] 宅在家 宜听歌吸猫 种花晒太阳","3091142760"));
-        recommends.add(new WyRecommend("http://p2.music.126.net/LJsMADNvkK_0ilmXbKg_TQ==/109951164809294621.jpg","极光轻音乐 | 听了让你落泪的轻音乐","4906766923"));
+        recommends.add(new WyRecommend("http://p1.music.126.net/CbzZ6Iv5Rq0uwf-LBxboog==/109951164961326571.jpg?imageView","五月继续加油，愿所有的结果都不辜负努力","4939476056"));
+        recommends.add(new WyRecommend("http://p1.music.126.net/d14C5k5RMmPdxBTJGxgA7A==/109951164962179056.jpg?imageView","[周末假期运势] 宅在家 宜听歌吸猫 种花晒太阳","3091142760"));
+        recommends.add(new WyRecommend("http://p1.music.126.net/bSpZApdtYshI4VKUnp81HA==/109951164961414245.jpg?imageView","极光轻音乐 | 听了让你落泪的轻音乐","4906766923"));
         //内部实现点击事件
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
