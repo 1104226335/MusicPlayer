@@ -250,6 +250,7 @@ public class WyComment {
         private Object remarkName;
         private Object expertTags;
 
+
         public Object getLocationInfo() {
             return locationInfo;
         }

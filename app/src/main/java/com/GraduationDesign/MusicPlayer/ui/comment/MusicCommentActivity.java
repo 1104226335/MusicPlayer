@@ -46,7 +46,7 @@ public class MusicCommentActivity extends BaseActivity implements MusicCommentCo
                     adapter.notifyDataSetChanged();
                     break;
                 case ErrorCode.sendComment_success:
-                    TextHelper.showLongText("评论成功");
+                    TextHelper.showLongText("评论成功,正在审核");
                     break;
             }
             return false;
@@ -65,7 +65,7 @@ public class MusicCommentActivity extends BaseActivity implements MusicCommentCo
         musicComment.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MusicCommentAdapter(this,hotComments);
         musicComment.setAdapter(adapter);
-
+        hotComments.clear();
         new MusicCommentPresenter(this,MusicId).start();
     }
 
@@ -113,7 +113,6 @@ public class MusicCommentActivity extends BaseActivity implements MusicCommentCo
     public void setAdapter(List<WyComment.HotCommentsBean> presenterList){
         Log.e("MusicComment","回调");
         Log.e("MusicComment",Integer.toString(presenterList.size()));
-        hotComments.clear();
         hotComments.addAll(presenterList);
         mhandler.sendMessage(mhandler.obtainMessage(1));
     }

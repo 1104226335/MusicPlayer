@@ -11,13 +11,23 @@ public class BodyBean {
      */
 
     public int id;
+    public String mid;
     public String title;
     public String author;
+    public String album;
     public String url;
     public String pic;
     public String lrc;
     public int getId() {
         return id;
+    }
+
+    public int getMid() {
+        return Integer.parseInt(mid);
+    }
+
+    public String getAlbum() {
+        return album;
     }
 
     public void setId(int id) {

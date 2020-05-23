@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.GraduationDesign.MusicPlayer.R;
+import com.GraduationDesign.MusicPlayer.Web.Common;
 import com.GraduationDesign.MusicPlayer.Web.CommonApi;
 import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.WyComment;
 import com.GraduationDesign.MusicPlayer.ui.main.MainActivity;
+import com.GraduationDesign.MusicPlayer.utils.UserMessageUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,6 +32,19 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         checkPermission();
+        if(UserMessageUtil.getInstance().isLogin()){
+            CommonApi.updateMyRecommend(UserMessageUtil.getInstance().getEmail(), new ResultCallback() {
+                @Override
+                public void onFinish(Object o, int code) {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                }
+            });
+        }
     }
 
     private void startMainActivity(){

@@ -62,6 +62,19 @@ public class TimeHelper {
         res = String.valueOf(ts);
         return res;
     }
+    /*
+     * 将时间转换为时间戳
+     */
+    public static long dateToLong(String s) {
+        Date date = new Date();
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            date = simpleDateFormat.parse(s);
+        }catch ( ParseException e){
+            e.printStackTrace();
+        }
+        return date.getTime();
+    }
 
     /*
      * 将时间戳转换为时间
@@ -238,7 +251,7 @@ public class TimeHelper {
      */
     public static String getStringToday() {
         Date currentTime = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd HHmmss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String dateString = formatter.format(currentTime);
         return dateString;
     }

@@ -25,8 +25,13 @@ public class LoginBean {
         public String UserName;
         public String UserID;
         public String UserEmail;
+        public String UserPic;
         public int UserIdentity;
         public String Message;
+
+        public String getUserPic() {
+            return UserPic;
+        }
 
         public int getUserIdentity() {
             return UserIdentity;

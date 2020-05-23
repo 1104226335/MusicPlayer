@@ -93,7 +93,7 @@ public class LocalMusicPresenter implements LocalMusicContract.Presenter, Loader
     @Override
     public void uploadMusicBySong(Song file) {
 
-        CommonApi.UploadFile(file, mView.getEmail(), new ResultCallback() {
+        CommonApi.UploadMusicFile(file, mView.getEmail(), new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
                 JsonModel jsonModel = (JsonModel) o;

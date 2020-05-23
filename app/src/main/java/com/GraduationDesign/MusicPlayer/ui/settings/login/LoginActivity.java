@@ -29,6 +29,7 @@ import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.LoginBean;
 import com.GraduationDesign.MusicPlayer.ui.main.MainActivity;
+import com.GraduationDesign.MusicPlayer.utils.UserMessageUtil;
 
 
 /**
@@ -135,17 +136,25 @@ public class LoginActivity extends AppCompatActivity  {
             CommonApi.logintoservice(email, password, new ResultCallback() {
                 @Override
                 public void onFinish(Object o, int code) {
-                    LoginBean loginBean = (LoginBean)o;
-                    if(loginBean.getResult().get(0).getMessage().equals("success")){
-                        SharedPreferences.Editor editor = getSharedPreferences("LoginMsg",Context.MODE_PRIVATE).edit();
-                        editor.putString("UserName",loginBean.getResult().get(0).getUserName());
-                        editor.putString("UserID",loginBean.getResult().get(0).getUserID());
-                        editor.putString("UserEmail",loginBean.getResult().get(0).getUserEmail());
-                        editor.putInt("UserIdentity",loginBean.getResult().get(0).getUserIdentity());
-                        editor.putBoolean("IsLogin",true);
-                        editor.apply();
+                    LoginBean login = (LoginBean)o;
+                    LoginBean.ResultBean loginBean = login.getResult().get(0);
+                    if(login.error == ErrorCode.login_success){
+//                        UserMessageUtil userMessageUtil = UserMessageUtil.getInstance();
+                        UserMessageUtil.getInstance().setAll(loginBean.getUserName(),
+                                loginBean.getUserEmail(),
+                                loginBean.getUserID(),
+                                loginBean.getUserPic(),
+                                loginBean.getUserIdentity(),
+                                true );
+//                        SharedPreferences.Editor editor = getSharedPreferences("LoginMsg",Context.MODE_PRIVATE).edit();
+//                        editor.putString("UserName",loginBean.getUserName());
+//                        editor.putString("UserID",loginBean.getUserID());
+//                        editor.putString("UserEmail",loginBean.getUserEmail());
+//                        editor.putInt("UserIdentity",loginBean.getResult().get(0).getUserIdentity());
+//                        editor.putBoolean("IsLogin",true);
+//                        editor.apply();
                     }
-                     mHandler.sendMessage(mHandler.obtainMessage(loginBean.error));
+                     mHandler.sendMessage(mHandler.obtainMessage(login.error));
                 }
 
                 @Override

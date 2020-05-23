@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyMusicList;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -17,24 +18,20 @@ import java.util.List;
 import com.GraduationDesign.MusicPlayer.R;
 
 public class CategoryMusicAdapter extends RecyclerView.Adapter<CategoryMusicAdapter.MusicViewHolder> {
-    private List<String> imgUrl;
-    private List<String> musicListName;
-    private List<String> musicListId;
+    List<MyMusicList> myMusicLists;
     private Context mContext;
     CategoryMusicListener itemClick;
     public interface CategoryMusicListener {
-        void clickItem(String listid,String name,String ListPic);
+        void clickItem(MyMusicList myMusicList);
     }
 
     public void setOnCategoryMusicListener(CategoryMusicListener listener) {
         itemClick = listener;
     }
 
-    public CategoryMusicAdapter(Context context, List<String> imgUrl, List<String> musicListName,List<String> musicListId){
-        this.imgUrl = imgUrl;
-        this.musicListName = musicListName;
+    public CategoryMusicAdapter(Context context, List<MyMusicList> myMusicLists){
+        this.myMusicLists = myMusicLists;
         this.mContext = context;
-        this.musicListId = musicListId;
     }
 
     @NonNull
@@ -44,28 +41,26 @@ public class CategoryMusicAdapter extends RecyclerView.Adapter<CategoryMusicAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MusicViewHolder viewHolder, int i) {
-        viewHolder.musicListName.setText(musicListName.get(i));
+    public void onBindViewHolder(@NonNull MusicViewHolder viewHolder,  int i) {
+        viewHolder.musicListName.setText(myMusicLists.get(i).getListName());
         Glide.with(mContext)
-                .load(imgUrl.get(i))
+                .load(myMusicLists.get(i).getImageUrl())
                 .apply(new RequestOptions()
                 .placeholder(R.mipmap.bro1)
                 .error(R.mipmap.bro2))
                 .into(viewHolder.musicListCover);
-        final String listId = musicListId.get(i);
-        final String listname = musicListName.get(i);
-        final String listPic = imgUrl.get(i);
+        final MyMusicList myMusicListT = myMusicLists.get(i);
         viewHolder.musicListCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClick.clickItem(listId,listname,listPic);
+                itemClick.clickItem(myMusicListT);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return imgUrl.size();
+        return myMusicLists.size();
     }
 
     class MusicViewHolder extends RecyclerView.ViewHolder{

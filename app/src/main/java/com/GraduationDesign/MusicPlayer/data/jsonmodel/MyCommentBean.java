@@ -36,9 +36,14 @@ public class MyCommentBean {
 
         public String UserName;
         public String commentDate;
+        public String UserPic;
         public String content;
         public String musicId;
         public String commentId;
+
+        public String getUserPic() {
+            return UserPic;
+        }
 
         public String getUserName() {
             return UserName;

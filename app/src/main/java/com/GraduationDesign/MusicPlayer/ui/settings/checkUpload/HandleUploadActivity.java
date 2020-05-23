@@ -2,7 +2,6 @@ package com.GraduationDesign.MusicPlayer.ui.settings.checkUpload;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -18,12 +17,10 @@ import com.GraduationDesign.MusicPlayer.RxBus;
 import com.GraduationDesign.MusicPlayer.Web.CommonApi;
 import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
-import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyCommentBean;
-import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyMusicBean;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.UploadMusicBean;
 import com.GraduationDesign.MusicPlayer.data.model.Song;
 import com.GraduationDesign.MusicPlayer.event.PlaySongEvent;
 import com.GraduationDesign.MusicPlayer.ui.base.BaseActivity;
-import com.GraduationDesign.MusicPlayer.ui.settings.checkcomment.CheckCommentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,7 @@ public class HandleUploadActivity extends BaseActivity implements HandleUploadAd
     Toolbar toolbar;
 
     HandleUploadAdapter handleUploadAdapter;
-    private List<MyMusicBean.ResultBean> resultBean = new ArrayList<>();
+    private List<UploadMusicBean.ResultBean> resultBean = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +70,7 @@ public class HandleUploadActivity extends BaseActivity implements HandleUploadAd
             @Override
             public void onFinish(Object o, int code) {
                 Log.e("MusicPlayer",o.toString());
-                MyMusicBean myMusicBean = (MyMusicBean)o;
+                UploadMusicBean myMusicBean = (UploadMusicBean)o;
                 resultBean.clear();
                 resultBean.addAll(myMusicBean.getResult());
                 mhandler.sendMessage(mhandler.obtainMessage(1));
@@ -117,7 +114,7 @@ public class HandleUploadActivity extends BaseActivity implements HandleUploadAd
             @Override
             public void onFinish(Object o, int code) {
                 Log.e("MusicCheck","返回成功");
-                MyMusicBean myMusicBean = (MyMusicBean)o;
+                UploadMusicBean myMusicBean = (UploadMusicBean)o;
                 if(myMusicBean.getError()==0){
                     TextHelper.showText("操作成功");
                     Log.e("MusicCheck","操作成功");

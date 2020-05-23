@@ -63,7 +63,7 @@ public class CheckCommentActivity extends BaseActivity implements CheckCommentAd
         }
     });
     public void initData(){
-        CommonApi.checkMyComment("check",0, new ResultCallback() {
+        CommonApi.checkMyComment("check","", new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
                 MyCommentBean myCommentBean = (MyCommentBean)o;
@@ -101,7 +101,7 @@ public class CheckCommentActivity extends BaseActivity implements CheckCommentAd
         actionMenu.show();
     }
     public void commentOp(String type,int commentId, final int positon){
-        CommonApi.checkMyComment(type, commentId, new ResultCallback() {
+        CommonApi.checkMyComment(type, Integer.toString(commentId), new ResultCallback() {
             @Override
             public void onFinish(Object o, int code) {
                 Log.e("MusicCheck","返回成功");

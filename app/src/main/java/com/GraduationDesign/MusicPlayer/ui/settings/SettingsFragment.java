@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,6 +35,10 @@ import com.GraduationDesign.MusicPlayer.ui.settings.feedback.HandleFeedbackActiv
 import com.GraduationDesign.MusicPlayer.ui.settings.feedback.SubmitFeedbackActivity;
 import com.GraduationDesign.MusicPlayer.ui.settings.login.LoginActivity;
 import com.GraduationDesign.MusicPlayer.utils.UpdateHelper;
+import com.GraduationDesign.MusicPlayer.utils.UserMessageUtil;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.IOException;
 
@@ -66,10 +71,12 @@ public class SettingsFragment extends BaseFragment {
     RelativeLayout checkUpload;
     @BindView(R.id.tv_handle_feedback)
     TextView userMessage;
+    @BindView(R.id.userimage)
+    ImageView userImage;
     Unbinder unbinder;
 
 
-    SharedPreferences shared;
+    UserMessageUtil userMessageUtil = UserMessageUtil.getInstance();
     String userName;
     int userIdentity;
     boolean islogin;
@@ -87,9 +94,8 @@ public class SettingsFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this,view);
 
-        shared = getContext().getSharedPreferences("LoginMsg",Context.MODE_PRIVATE);
-        userName = shared.getString("UserName","登录");
-        userIdentity = shared.getInt("UserIdentity",0);
+        userName = userMessageUtil.getName();
+        userIdentity = userMessageUtil.getIdentity();
         tvUserName.setText(userName);
         musicplay_setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,18 +118,16 @@ public class SettingsFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-
+        getAsyn(URLCONST.method_getCurAppVersion);
     }
     @OnClick(R.id.setting_app_about)
     public void about(){
-        getAsyn(URLCONST.method_getCurAppVersion);
         checkUpdate();
     }
 
     @OnClick(R.id.login)
     public void login(){
-        islogin = shared.getBoolean("IsLogin",false);
-        if(islogin){
+        if(userMessageUtil.isLogin() ){
             startActivity(new Intent(getActivity(),AccountBindActivitity.class));
         }else {
             Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -132,22 +136,12 @@ public class SettingsFragment extends BaseFragment {
     }
     @OnClick(R.id.logout)
     public void logout(){
-        islogin = shared.getBoolean("IsLogin",false);
-        if(islogin){
-            SharedPreferences.Editor editor = shared.edit();
-            editor.putBoolean("IsLogin",false);
-            editor.putString("UserName","登陆");
-            editor.putString("UseID","");
-            editor.putString("UserEmail","");
-            editor.putInt("UserIdentity",0);
-            editor.apply();
+        if(userMessageUtil.isLogin()){
+            userMessageUtil.deleteAll();
             Intent intent = new Intent(getActivity(),LoginActivity.class);
             startActivity(intent);
-        }else {
-
+            editUserImage();
         }
-
-
     }
     @OnClick(R.id.setting_check_comment)
     public void checkComment(){
@@ -162,8 +156,8 @@ public class SettingsFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        userName = shared.getString("UserName","登录");
-        userIdentity = shared.getInt("UserIdentity",0);
+        userName = userMessageUtil.getName();
+        userIdentity = userMessageUtil.getIdentity();
         tvUserName.setText(userName);
         if(userIdentity==0){
             app_check_comment.setVisibility(View.GONE);
@@ -176,12 +170,27 @@ public class SettingsFragment extends BaseFragment {
             setting_submit_feedback.setVisibility(View.GONE);
             userMessage.setText("处理反馈");
         }
-        islogin = shared.getBoolean("IsLogin",false);
-        if(islogin){
+
+        if(userMessageUtil.isLogin()){
             logout.setVisibility(View.VISIBLE);
-        }else logout.setVisibility(View.GONE);
+            editUserImage();
+        }else {
+            logout.setVisibility(View.GONE);
+        }
 
     }
+
+    public void editUserImage(){
+        if(getActivity() != null){
+            Glide.with(getActivity())
+                    .load(UserMessageUtil.getInstance().getPic())
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop())
+                            .error(R.mipmap.user_head_72)
+                            .placeholder(R.mipmap.user_head_72))
+                    .into(userImage);
+        }
+    }
+
     public  void checkUpdate() {
 //        Activity context = this;
         float versionCode = VersionCode;

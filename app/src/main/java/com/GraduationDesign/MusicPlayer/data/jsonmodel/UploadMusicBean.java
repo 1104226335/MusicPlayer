@@ -2,7 +2,7 @@ package com.GraduationDesign.MusicPlayer.data.jsonmodel;
 
 import java.util.List;
 
-public class MyMusicBean {
+public class UploadMusicBean {
 
     /**
      * error : 0

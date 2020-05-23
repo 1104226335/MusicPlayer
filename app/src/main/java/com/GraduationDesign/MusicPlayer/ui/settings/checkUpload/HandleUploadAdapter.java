@@ -2,7 +2,6 @@ package com.GraduationDesign.MusicPlayer.ui.settings.checkUpload;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.GraduationDesign.MusicPlayer.R;
-import com.GraduationDesign.MusicPlayer.Web.URLCONST;
-import com.GraduationDesign.MusicPlayer.data.jsonmodel.BodyBean;
-import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyMusicBean;
-import com.GraduationDesign.MusicPlayer.data.model.PlayList;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.UploadMusicBean;
 import com.GraduationDesign.MusicPlayer.data.model.Song;
-import com.GraduationDesign.MusicPlayer.ui.search.SearchContract;
-import com.GraduationDesign.MusicPlayer.ui.settings.checkcomment.CheckCommentAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -27,9 +21,9 @@ import java.util.List;
 
 public class HandleUploadAdapter extends RecyclerView.Adapter<HandleUploadAdapter.ViewHolder>{
     private Context mContext;
-    private List<MyMusicBean.ResultBean> searchResults;
+    private List<UploadMusicBean.ResultBean> searchResults;
     HandleUploadAdapter.OnAction action;
-    public HandleUploadAdapter(Context context,List<MyMusicBean.ResultBean> searchResults){
+    public HandleUploadAdapter(Context context,List<UploadMusicBean.ResultBean> searchResults){
         this.mContext = context;
         this.searchResults = searchResults;
     }

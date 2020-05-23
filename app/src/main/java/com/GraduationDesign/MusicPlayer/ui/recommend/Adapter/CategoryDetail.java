@@ -1,42 +1,31 @@
 package com.GraduationDesign.MusicPlayer.ui.recommend.Adapter;
 
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyMusicList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDetail {
-    List<String> imageUrl,listName,id;
+    List<MyMusicList> musicLists ;
     String categoryName;
     public CategoryDetail(){
-
-    }
-    public void setImageUrl(List<String> ImageUrl){
-        this.imageUrl = ImageUrl;
-    }
-
-    public void setListName(List<String> listName) {
-        this.listName = listName;
+        musicLists = new ArrayList<>();
+        categoryName = "null";
     }
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    public void setId(List<String> id) {
-        this.id = id;
+    public void setMusicLists(List<MyMusicList> musicLists) {
+        this.musicLists = musicLists;
     }
 
-    public List<String> getImageUrl() {
-        return imageUrl;
-    }
-
-    public List<String> getListName() {
-        return listName;
+    public List<MyMusicList> getMusicLists() {
+        return musicLists;
     }
 
     public String getCategoryName() {
         return categoryName;
-    }
-
-    public List<String> getId() {
-        return id;
     }
 }

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface RecommendItemLitener {
 //    public void OnClickItem(Song song);
-    public void OnClickItem(PlayList songs, int position);
+    void OnClickItem(PlayList songs, int position);
 }

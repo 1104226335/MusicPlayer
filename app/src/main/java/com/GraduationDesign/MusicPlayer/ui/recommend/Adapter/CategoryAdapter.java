@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.GraduationDesign.MusicPlayer.R;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyMusicList;
 import com.GraduationDesign.MusicPlayer.ui.recommend.MusicListListener;
 
 
@@ -33,14 +34,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int positio) {
         holder.TVcategoryName.setText(categoryDetailss.get(positio).getCategoryName());
         holder.TVcategoryDetail.setLayoutManager(new GridLayoutManager(contexts,2));
-        CategoryMusicAdapter categoryMusicAdapter = new CategoryMusicAdapter(contexts
-                ,categoryDetailss.get(positio).getImageUrl()
-                ,categoryDetailss.get(positio).getListName()
-                ,categoryDetailss.get(positio).getId());
+        CategoryMusicAdapter categoryMusicAdapter = new CategoryMusicAdapter(contexts,categoryDetailss.get(positio).getMusicLists());
         categoryMusicAdapter.setOnCategoryMusicListener(new CategoryMusicAdapter.CategoryMusicListener() {
             @Override
-            public void clickItem(String listid,String  name,String ListPic) {
-                musicListListener.OnClickItem(listid,name,ListPic);
+            public void clickItem(MyMusicList myMusicList) {
+                musicListListener.OnClickItem(myMusicList);
             }
         });
         holder.TVcategoryDetail.setAdapter(categoryMusicAdapter);

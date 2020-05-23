@@ -2,6 +2,8 @@ package com.GraduationDesign.MusicPlayer.utils;
 
 import android.util.Log;
 
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.BannerBean;
+import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyMusicList;
 import com.GraduationDesign.MusicPlayer.ui.recommend.Adapter.CategoryDetail;
 
 import org.jsoup.Jsoup;
@@ -16,12 +18,9 @@ import java.util.List;
 
 public class WyRecommendUtil {
 
-    public static List<CategoryDetail> getRecommendFromWy(){
-        List<CategoryDetail> recommends = new ArrayList<>();
+    public static CategoryDetail getRecommendFromWy(){
         CategoryDetail categoryDetail = new CategoryDetail();
-        List<String> musicListCover = new ArrayList<>();
-        List<String> musicListName = new ArrayList<>();
-        List<String> musicListId = new ArrayList<>();
+        List<MyMusicList> myMusicLists = new ArrayList<>();
         Document doc;
         Log.e("MusicWy","this");
         try {
@@ -31,19 +30,17 @@ public class WyRecommendUtil {
             for(Element li : divs.children()){
 
                 Element item = li.getElementsByClass("u-cover u-cover-1").get(0);
-                musicListCover.add(item.child(0).attr("src"));
-                musicListId.add(item.child(1).attr("data-res-id"));
-                musicListName.add(item.child(1).attr("title"));
+
+                myMusicLists.add(new MyMusicList(item.child(0).attr("src"),
+                        item.child(1).attr("title"),
+                        item.child(1).attr("data-res-id")));
 
                 Log.e("MusicWy",item.child(0).attr("src"));
             }
-            categoryDetail.setId(musicListId);
-            categoryDetail.setImageUrl(musicListCover);
-            categoryDetail.setListName(musicListName);
+            categoryDetail.setMusicLists(myMusicLists);
             categoryDetail.setCategoryName("必听歌单");
-            recommends.add(categoryDetail);
         }catch (IOException e){e.printStackTrace();}
-        return recommends;
+        return categoryDetail;
     }
     /**
      * 获取重定向地址

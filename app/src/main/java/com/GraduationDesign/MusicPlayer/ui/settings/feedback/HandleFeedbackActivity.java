@@ -20,6 +20,7 @@ import com.GraduationDesign.MusicPlayer.Web.CommonApi;
 import com.GraduationDesign.MusicPlayer.Web.ResultCallback;
 import com.GraduationDesign.MusicPlayer.Web.TextHelper;
 import com.GraduationDesign.MusicPlayer.data.jsonmodel.MyFeedbackBean;
+import com.GraduationDesign.MusicPlayer.utils.UserMessageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,12 @@ public class HandleFeedbackActivity extends AppCompatActivity implements HandleF
             actionBar.setDisplayShowHomeEnabled(true);
         }
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("处理反馈");
+            getSupportActionBar().setTitle("消息通知");
+            if(UserMessageUtil.getInstance().isLogin()){
+                if(UserMessageUtil.getInstance().getIdentity() == UserMessageUtil.IDENTITY_ADMIN){
+                    getSupportActionBar().setTitle("处理反馈");
+                }
+            }
         }
     }
     @Override

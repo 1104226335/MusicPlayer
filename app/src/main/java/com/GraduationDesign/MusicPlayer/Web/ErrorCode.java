@@ -14,6 +14,17 @@ public class ErrorCode {
     public static final int regist_success = 0;//注册成功
     public static final int unknow_database_error = 102;//数据库错误
     public static final int internet_waring = 100;// 网络访问错误
+    public static final int change_email_exist = 101;//用户已存在
+
+    public static final int change_email_pass_wrong = 103;// 密码错误
+    public static final int change_email_over_login = 104;//登录过期
+    public static final int change_email_DB_err= 102;//数据库错误
+    public static final int change_email_success = 0;//登陆成功
+
+    public static final int change_password_pass_wrong = 103;// 密码错误
+    public static final int change_password_over_login = 104;//登录过期
+    public static final int change_password_DB_err= 102;//数据库错误
+    public static final int change_password_success = 0;//登陆成功
     /////////以上
 
     public static final int no_security = 4;// 没有权限(登陆过期)

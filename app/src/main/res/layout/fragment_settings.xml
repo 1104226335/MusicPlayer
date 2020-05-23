@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_little_background"
         android:background="@color/setting_primary"
-
+        android:visibility="gone"
         android:layout_marginTop="@dimen/setting_space"
         >
         <TextView

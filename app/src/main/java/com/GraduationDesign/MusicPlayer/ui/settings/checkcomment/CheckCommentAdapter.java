@@ -40,7 +40,7 @@ public class CheckCommentAdapter extends RecyclerView.Adapter<CheckCommentAdapte
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, final int position) {
         Glide.with(mContext)
-                .load(R.mipmap.bro1)
+                .load(mCommentList.get(position).getUserPic())
                 .apply(RequestOptions.bitmapTransform(new CircleCrop())
                 .error(R.mipmap.bro1))
                 .into(holder.userPic);

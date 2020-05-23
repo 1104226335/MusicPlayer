@@ -2,6 +2,7 @@ package com.GraduationDesign.MusicPlayer.ui.local.all;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,9 +29,11 @@ import com.GraduationDesign.MusicPlayer.ui.base.BaseFragment;
 import com.GraduationDesign.MusicPlayer.ui.base.adapter.OnItemClickListener;
 import com.GraduationDesign.MusicPlayer.ui.common.DefaultDividerDecoration;
 import com.GraduationDesign.MusicPlayer.ui.playlist.AddToPlayListDialogFragment;
+import com.GraduationDesign.MusicPlayer.ui.settings.login.LoginActivity;
 import com.GraduationDesign.MusicPlayer.ui.widget.RecyclerViewFastScroller;
 import com.GraduationDesign.MusicPlayer.utils.BaseDialog;
 import com.GraduationDesign.MusicPlayer.utils.BaseDialogListener;
+import com.GraduationDesign.MusicPlayer.utils.UserMessageUtil;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -112,6 +115,7 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
         final Song song = mAdapter.getItem(position);
         PopupMenu actionMenu = new PopupMenu(getActivity(), actionView, Gravity.END | Gravity.BOTTOM);
         actionMenu.inflate(R.menu.music_action);
+        actionMenu.getMenu().findItem(R.id.menu_item_delete).setVisible(false);
         actionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -127,7 +131,8 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
                                 .show(getActivity().getSupportFragmentManager().beginTransaction(), "AddToPlayList");
                         break;
                     case R.id.menu_item_update:
-                        update(song);
+                        if(UserMessageUtil.getInstance().isLogin())update(song);
+                            else startActivity(new Intent(getActivity(),LoginActivity.class));
                         break;
                 }
                 return true;
