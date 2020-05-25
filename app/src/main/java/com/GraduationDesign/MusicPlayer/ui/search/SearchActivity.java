@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.GraduationDesign.MusicPlayer.R;
@@ -47,6 +48,8 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
     TextView mySearchContent;
     @BindView(R.id.search_input_send)
     Button toSearch;
+    @BindView(R.id.search_progress)
+    ProgressBar searchProgress;
     SearchContract.Presenter presenter;
     SearchAdapter adapter;
     List<BodyBean> searchResult = new ArrayList<>();
@@ -56,6 +59,8 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
         public boolean handleMessage(Message msg) {
             switch (msg.what){
                 case 1:
+                    searchProgress.setVisibility(View.INVISIBLE);
+                    adapter.clearSongList();
                     adapter.notifyDataSetChanged();
                     break;
 
@@ -71,8 +76,9 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
         ButterKnife.bind(this);
         supportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("搜索结果");
+            getSupportActionBar().setTitle("搜索");
         }
+        searchProgress.setVisibility(View.GONE);
         musicComment.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SearchAdapter(this,searchResult,this);
         musicComment.setAdapter(adapter);
@@ -86,6 +92,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.View 
         if(!searchKey.isEmpty()){
             mySearchContent.setText("");
             presenter.search(searchKey);
+            searchProgress.setVisibility(View.VISIBLE);
         }
     }
     @Override

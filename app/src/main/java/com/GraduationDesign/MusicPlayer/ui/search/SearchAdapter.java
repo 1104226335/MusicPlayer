@@ -18,6 +18,7 @@ import com.GraduationDesign.MusicPlayer.data.model.Song;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>{
@@ -40,7 +41,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, final int position) {
-        final Song song = new Song();
+         Song song = new Song();
         song.setId(searchResults.get(position).getId());
         song.setSize(0);
         song.setDuration(200000);
@@ -66,9 +67,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                actionCallback.onAction(v,song);
+                actionCallback.onAction(v,searchSongs.getSongs().get(position));
             }
         });
+    }
+
+    public void clearSongList(){
+        searchSongs.setSongs(new ArrayList<Song>());
     }
 
     @Override

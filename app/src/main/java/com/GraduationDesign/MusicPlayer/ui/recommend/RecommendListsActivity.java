@@ -137,6 +137,7 @@ public class RecommendListsActivity extends BaseActivity {
                 PopupMenu actionMenu = new PopupMenu(mContext, actionView, Gravity.END | Gravity.BOTTOM);
                 actionMenu.inflate(R.menu.music_action);
                 actionMenu.getMenu().findItem(R.id.menu_item_delete).setVisible(false);
+                actionMenu.getMenu().findItem(R.id.menu_item_update).setVisible(false);
                 actionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
