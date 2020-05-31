@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity  {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -146,13 +146,6 @@ public class LoginActivity extends AppCompatActivity  {
                                 loginBean.getUserPic(),
                                 loginBean.getUserIdentity(),
                                 true );
-//                        SharedPreferences.Editor editor = getSharedPreferences("LoginMsg",Context.MODE_PRIVATE).edit();
-//                        editor.putString("UserName",loginBean.getUserName());
-//                        editor.putString("UserID",loginBean.getUserID());
-//                        editor.putString("UserEmail",loginBean.getUserEmail());
-//                        editor.putInt("UserIdentity",loginBean.getResult().get(0).getUserIdentity());
-//                        editor.putBoolean("IsLogin",true);
-//                        editor.apply();
                     }
                      mHandler.sendMessage(mHandler.obtainMessage(login.error));
                 }

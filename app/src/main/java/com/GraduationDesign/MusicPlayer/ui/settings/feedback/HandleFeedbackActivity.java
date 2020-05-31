@@ -145,6 +145,7 @@ public class HandleFeedbackActivity extends AppCompatActivity implements HandleF
         actionMenu.inflate(R.menu.check_action);
         actionMenu.getMenu().findItem(R.id.menu_item_pass).setVisible(false);
         actionMenu.getMenu().findItem(R.id.menu_item_failed_pass).setVisible(false);
+        actionMenu.getMenu().findItem(R.id.menu_item_feedback).setTitle("回复");
         actionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
