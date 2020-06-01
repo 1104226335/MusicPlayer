@@ -39,7 +39,7 @@ public class HandleFeedbackAdapter extends RecyclerView.Adapter<HandleFeedbackAd
     @Override
     public void onBindViewHolder(@NonNull HandleFeedbackAdapter.FeedbackViewHolder holder, final int position) {
         Glide.with(fContext)
-                .load(R.mipmap.bro1)
+                .load(fFeedbackList.get(position).getUserPic())
                 .apply(RequestOptions.bitmapTransform(new CircleCrop())
                         .error(R.mipmap.bro1))
                 .into(holder.userPic);

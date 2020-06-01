@@ -47,10 +47,19 @@ public class MyFeedbackBean {
          */
 
         private String UserName;
+        private String  UserPic;
         private String feedbackDate;
         private String content;
         private String feedbackId;
         public String feed;
+
+        public String getUserPic() {
+            return UserPic;
+        }
+
+        public void setUserPic(String userPic) {
+            UserPic = userPic;
+        }
 
         public String getFeed() {
             return feed;
